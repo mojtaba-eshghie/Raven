@@ -64,14 +64,6 @@ The function returns a dictionary with:
 - **failure_invariant:** The specific revert/require/assert condition that triggered the failure.
 - **failure_message:** The accompanying message (if available), or fallback information if data is missing.
 
-## Contributing
-
-Contributions are welcome! Please check out our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
 ## Contact
 
 For further questions or collaboration, please reach out to:
