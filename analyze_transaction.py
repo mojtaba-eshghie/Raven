@@ -52,10 +52,10 @@ def analyze_contract_execution(contract, line_number, last_function):
         for i in range(line_number, 0, -1):
             if last_function in source_code[i]:   
                 error_lines = [source_code[line_number - 1]]
-                if ");" not in source_code[line_number -1]:
-                    for i in range(line_number + 1, len(source_code), 1):
-                        error_lines.append(source_code[i - 1])
-                        if ");" in source_code[i -1]:
+                if ");" not in source_code[line_number -1] and "}" not in source_code[line_number -1]:
+                    for i in range(line_number, len(source_code), 1):
+                        error_lines.append(source_code[i])
+                        if ");" in source_code[i] or "}" in source_code[i]:
                             break
                 return error_lines
             if "function" in source_code[i]:
@@ -181,6 +181,9 @@ if __name__ == "__main__":
 
 # require
 #0x3fa6ac025485bf482a632e1d14e09902b5a176cb455ed081c3f9b8da2036a4fc
+
+# revert
+# 0x6079171f7d3a5f9bf37857480c95a66d5cfeb9ba17bc8904aebe0e82c21d346d
 
 # working transaction
 #0xc390f5f74130c0821dced50501fea66dd2d684a29887cfb205e2f12edaa2c523
