@@ -31,8 +31,8 @@ To set up the project locally:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/mojtaba-eshghie/Failysis/
+cd Failysis
 
 # Install dependencies
 pip install -r requirements.txt
