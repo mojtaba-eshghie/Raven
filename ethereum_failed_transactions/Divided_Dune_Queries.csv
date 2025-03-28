@@ -1,0 +1,133 @@
+Query ID,SQL Query
+1,"-- Query 1
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 0 AND 692030
+  AND success = FALSE;"
+2,"-- Query 2
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 692031 AND 1384061
+  AND success = FALSE;"
+3,"-- Query 3
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 1384062 AND 2076092
+  AND success = FALSE;"
+4,"-- Query 4
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 2076093 AND 2768123
+  AND success = FALSE;"
+5,"-- Query 5
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 2768124 AND 3460154
+  AND success = FALSE;"
+6,"-- Query 6
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 3460155 AND 4152185
+  AND success = FALSE;"
+7,"-- Query 7
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 4152186 AND 4844216
+  AND success = FALSE;"
+8,"-- Query 8
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 4844217 AND 5536247
+  AND success = FALSE;"
+9,"-- Query 9
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 5536248 AND 6228278
+  AND success = FALSE;"
+10,"-- Query 10
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 6228279 AND 6920309
+  AND success = FALSE;"
+11,"-- Query 11
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 6920310 AND 7612340
+  AND success = FALSE;"
+12,"-- Query 12
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 7612341 AND 8304371
+  AND success = FALSE;"
+13,"-- Query 13
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 8304372 AND 8996402
+  AND success = FALSE;"
+14,"-- Query 14
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 8996403 AND 9688433
+  AND success = FALSE;"
+15,"-- Query 15
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 9688434 AND 10380464
+  AND success = FALSE;"
+16,"-- Query 16
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 10380465 AND 11072495
+  AND success = FALSE;"
+17,"-- Query 17
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 11072496 AND 11764526
+  AND success = FALSE;"
+18,"-- Query 18
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 11764527 AND 12456557
+  AND success = FALSE;"
+19,"-- Query 19
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 12456558 AND 13148588
+  AND success = FALSE;"
+20,"-- Query 20
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 13148589 AND 13840619
+  AND success = FALSE;"
+21,"-- Query 21
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 13840620 AND 14532650
+  AND success = FALSE;"
+22,"-- Query 22
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 14532651 AND 15224681
+  AND success = FALSE;"
+23,"-- Query 23
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 15224682 AND 15916712
+  AND success = FALSE;"
+24,"-- Query 24
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 15916713 AND 16608743
+  AND success = FALSE;"
+25,"-- Query 25
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 16608744 AND 17300774
+  AND success = FALSE;"
+26,"-- Query 26
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 17300775 AND 17992805
+  AND success = FALSE;"
+27,"-- Query 27
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 17992806 AND 18684836
+  AND success = FALSE;"
+28,"-- Query 28
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 18684837 AND 19376867
+  AND success = FALSE;"
+29,"-- Query 29a NOT DONE FROM HERE...
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 19376868 AND 20068898
+  AND success = FALSE;"
+29,"-- Query 29b 
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 20068898 AND 20068899
+  AND success = FALSE;"
+30,"-- Query 30; the start of the range it should have been: 20068899; but it yielded too many results...
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 20088899 AND 20760929
+  AND success = FALSE;"
+31,"-- Query 31
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 20760930 AND 21452960
+  AND success = FALSE;"
+32,"-- Query 32
+SELECT hash FROM ethereum.transactions
+WHERE block_number BETWEEN 21452961 AND 22145000
+  AND success = FALSE;"
