@@ -36,6 +36,6 @@ def run_all_invariants(file_name):
     
     table = pa.Table.from_pandas(df)
     # Save the result back to the same Parquet file
-    pq.write_table(table, "text_result.parquet")  # This will overwrite the existing file
+    pq.write_table(table, file_name)  # This will overwrite the existing file
 
 run_all_invariants(file_path)
