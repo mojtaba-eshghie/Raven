@@ -2,66 +2,106 @@ import requests
 import sys
 import json
 import argparse
-import os
+import time
 
 # API Endpoints and Keys (Consider storing sensitive keys securely using environment variables)
 TENDERLY_SIMULATION_URL = "https://api.tenderly.co/api/v1/account/Melissa194/project/project/simulate"
 TENDERLY_PUBLIC_TX_URL = "https://api.tenderly.co/api/v1/public-contract/1/tx/"
 
-TENDERLY_API_KEY = os.getenv("TENDERLY_API_KEY")
+TENDERLY_API_KEY = "QBaUP1mgKshN32lxAUgaGxkksjBXVoo8"
 
-if not TENDERLY_API_KEY:
-    raise ValueError("API key is missing. Set TENDERLY_API_KEY as environment variables.")
+MAX_RETRIES = 5
+INITIAL_RETRY_DELAY = 1  # Start at 1 second
+BACKOFF_MULTIPLIER = 2  # Exponential growth factor
 
-def get_last_call(call_data):
-    """Traverse call trace to get the last executed call."""
-    while "calls" in call_data and isinstance(call_data["calls"], list) and call_data["calls"]:
-        call_data = call_data["calls"][-1]  # Move to the last call
-    return call_data
 
 
 def safe_request(url, method="GET", headers=None, payload=None):
-    """Helper function to handle API requests with error handling."""
-    try:
-        if method == "POST":
-            response = requests.post(url, json=payload, headers=headers, timeout=10)
-        else:
-            response = requests.get(url, headers=headers, timeout=10)
+    """Helper function to handle API requests with exponential backoff."""
+    retry_delay = INITIAL_RETRY_DELAY
 
-        if response.status_code == 200:
-            return response.json()
-        elif response.status_code == 429:
-            print("Rate limit exceeded. Please try again later.")
-        else:
-            print(f"API request failed: {response.status_code} - {response.text}")
+    for attempt in range(MAX_RETRIES):
+        try:
+            if method == "POST":
+                response = requests.post(url, json=payload, headers=headers)
+            else:
+                response = requests.get(url, headers=headers)
 
-    except requests.exceptions.Timeout:
-        print("Request timed out. Please try again.")
-    except requests.exceptions.ConnectionError:
-        print("Network error. Check your internet connection.")
-    except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
+            if response.status_code == 200:
+                return response.json()
+            elif response.status_code == 429:  # Rate limit
+                print(f"Rate limit exceeded. Retrying in {retry_delay} seconds...")
+            else:
+                return response.status_code  # Return other errors immediately
+        
+        except requests.exceptions.Timeout:
+            print(f"Request timed out. Retrying in {retry_delay} seconds...")
+        except requests.exceptions.ConnectionError:
+            print(f"Network error. Retrying in {retry_delay} seconds...")
+        except requests.exceptions.RequestException as e:
+            print(f"An unexpected error occurred: {e}")
+            break  # Stop retries for unexpected errors
 
+        time.sleep(retry_delay)
+        retry_delay *= BACKOFF_MULTIPLIER  # Apply exponential backoff
+
+    print("Max retries reached. Request failed.")
     return None
 
-
-def analyze_contract_execution(contract, line_number, last_function):
+def get_errorlines(contract, line_number):
     """Analyze contract source code around the error line."""
     source_code = contract["source"].splitlines()
-    if len(source_code) >= line_number:
-        for i in range(line_number, 0, -1):
-            if last_function in source_code[i]:   
-                error_lines = [source_code[line_number - 1]]
-                if ");" not in source_code[line_number -1]:
-                    for i in range(line_number + 1, len(source_code), 1):
-                        error_lines.append(source_code[i - 1])
-                        if ");" in source_code[i -1]:
-                            break
-                return error_lines
-            if "function" in source_code[i]:
-                return []
-    return []
+    error_lines = ""
+    if len(source_code) >= line_number and line_number > 0:
+        error_lines = [source_code[line_number - 1].strip()]
+        if ");" not in source_code[line_number -1] and "}" not in source_code[line_number -1]:
+            for i in range(line_number, len(source_code), 1):
+                error_lines.append(source_code[i].strip())
+                if ");" in source_code[i] or "}" in source_code[i]:
+                    break
+    error_lines = "\n".join(error_lines)
+    return error_lines
 
+def is_out_of_gas(tx_hash):
+    """Fetch transaction details from Tenderly's public API."""
+    headers = {
+        'authority': 'api.tenderly.co',
+        'accept': 'application/json, text/plain, */*',
+        'referer': 'https://dashboard.tenderly.co/',
+    }
+
+    data = safe_request(f"{TENDERLY_PUBLIC_TX_URL}{tx_hash}", headers=headers)
+        
+    error_message = data.get("error_message")
+
+    if "out of gas" in error_message:
+        return True
+    return False
+
+
+def get_error_from_stack(response_data):
+    stack_trace = response_data["transaction"]["transaction_info"]["stack_trace"][0]
+    if stack_trace.get("line") == "null" and stack_trace.get("line") == "null":
+        return {"error_message": "OpCode: REVERT", "failure_invariant": ""}
+    
+    if stack_trace.get("error") != "null":
+        file_index = stack_trace.get("file_index")
+        contract = stack_trace.get("contract")
+        name = stack_trace.get("name")
+        error_line = stack_trace.get("line")
+        error_message = stack_trace.get("error")
+        error_details = {"failure_message": error_message, "failure_invariant": []}
+        # Analyze the contract where the failure occurred
+        contracts = response_data["contracts"]
+        for contract in contracts:
+            if contract["contract_name"] == name:
+                contract_data = contract["data"]["contract_info"]
+                for data in contract_data:
+                    if data["id"] == file_index:
+                        error_lines = get_errorlines(data, error_line)
+                        error_details["failure_invariant"] = error_lines
+                        return error_details
+    return error_details
 
 def analyze_failed_transaction(from_address, to_address, block_number, tx_input, gas, gas_price, value, tx_index,
                           simulation_mode="full", network_id="1", save=False):
@@ -81,27 +121,14 @@ def analyze_failed_transaction(from_address, to_address, block_number, tx_input,
         "save": False,
     }
     headers = {'X-Access-Key': TENDERLY_API_KEY}
+    response = safe_request(TENDERLY_SIMULATION_URL, method= "POST", headers = headers, payload= payload)
+    #response = requests.post(TENDERLY_SIMULATION_URL, json=payload, headers=headers)
 
-    response = requests.post(TENDERLY_SIMULATION_URL, json=payload, headers=headers)
-    response_data = response.json()
-    #response_data = safe_request(TENDERLY_SIMULATION_URL, method="POST", headers=payload, payload=headers)
-
+    #response_data = response.json()
     # Extract last executed call details
-    last_call = get_last_call(response_data["transaction"]["transaction_info"]["call_trace"])
-    last_function = last_call.get("function_name")
-    line_number = last_call.get("error_line_number")
     
-    error_details = {"failure_message": response_data["transaction"]["error_message"], "failure_invariant": []}
-    # Analyze the contract where the failure occurred
-    contracts = response_data["contracts"]
-    for contract in contracts:
-        contract_data = contract["data"]["contract_info"]
-        for data in contract_data:
-            error_lines = analyze_contract_execution(data, line_number, last_function)
-            if error_lines:
-                error_details["failure_invariant"] = error_lines
-                break
-    return error_details
+    return get_error_from_stack(response)
+
 
 def fetch_transaction_info(tx_hash):
     """Fetch transaction details from Tenderly's public API."""
@@ -112,17 +139,10 @@ def fetch_transaction_info(tx_hash):
     }
 
     data = safe_request(f"{TENDERLY_PUBLIC_TX_URL}{tx_hash}", headers=headers)
-    if not data:
-        return {"error": "Failed to fetch transaction details."}
-    """
-    try:
-        with open("output.txt", "w") as f:
-            json.dump(data, f, indent=2)
-    except IOError as e:
-        print(f"File writing error: {e}")
-    """
 
-    print(f"\nSimulate transaction for: {tx_hash}")
+    if data == 429:
+        return data
+
     result = {}
 
     if not data.get("status"):
@@ -140,7 +160,7 @@ def fetch_transaction_info(tx_hash):
         from_address = data.get("from")
         to_address = data.get("to")
         tx_input = data.get("input")
-        gas = int(data.get("gas_used", 0))
+        gas = int(data.get("gas_limit", 0))
         gas_price = int(data.get("gas_price", 0))
         value = data.get("value", "0x0")
         if value == "0x":
@@ -150,6 +170,8 @@ def fetch_transaction_info(tx_hash):
         
         # Simulate the failed transaction
         error_analysis = analyze_failed_transaction(from_address, to_address, block_number, tx_input, gas, gas_price, value, tx_index)
+        if error_analysis == 429:
+            return None
         result.update(error_analysis)
     else:
         result["Status"] = True
