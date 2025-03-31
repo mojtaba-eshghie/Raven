@@ -38,4 +38,16 @@ def run_all_invariants(file_name):
     # Save the result back to the same Parquet file
     pq.write_table(table, file_name)  # This will overwrite the existing file
 
-run_all_invariants(file_path)
+def get_random_transactions(transaction_nr, file_name):
+    print("read file")
+    df = pd.read_parquet(file_name)
+    random_rows = df.sample(n=transaction_nr, random_state=42)  # Set random_state for reproducibility
+    cols = random_rows["hash"]
+    for row in cols:
+        res = get_invariant(row)
+        print(res)
+
+get_random_transactions(1000, file_path)
+
+
+#run_all_invariants(file_path)

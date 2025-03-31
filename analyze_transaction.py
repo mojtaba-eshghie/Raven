@@ -10,7 +10,7 @@ TENDERLY_PUBLIC_TX_URL = "https://api.tenderly.co/api/v1/public-contract/1/tx/"
 
 TENDERLY_API_KEY = "QBaUP1mgKshN32lxAUgaGxkksjBXVoo8"
 
-MAX_RETRIES = 5
+MAX_RETRIES = 10
 INITIAL_RETRY_DELAY = 1  # Start at 1 second
 BACKOFF_MULTIPLIER = 2  # Exponential growth factor
 
@@ -28,12 +28,13 @@ def safe_request(url, method="GET", headers=None, payload=None):
                 response = requests.get(url, headers=headers)
 
             if response.status_code == 200:
-                return response.json()
-            elif response.status_code == 429:  # Rate limit
+                return response.json()  # Successfully got a response
+            elif response.status_code == 429:  # Rate limit error
                 print(f"Rate limit exceeded. Retrying in {retry_delay} seconds...")
             else:
-                return response.status_code  # Return other errors immediately
-        
+                # Handle other HTTP errors (non-200, non-429)
+                print(f"Received status code {response.status_code}. Retrying in {retry_delay} seconds...")
+
         except requests.exceptions.Timeout:
             print(f"Request timed out. Retrying in {retry_delay} seconds...")
         except requests.exceptions.ConnectionError:
@@ -42,7 +43,7 @@ def safe_request(url, method="GET", headers=None, payload=None):
             print(f"An unexpected error occurred: {e}")
             break  # Stop retries for unexpected errors
 
-        time.sleep(retry_delay)
+        time.sleep(retry_delay)  # Wait before retrying
         retry_delay *= BACKOFF_MULTIPLIER  # Apply exponential backoff
 
     print("Max retries reached. Request failed.")
@@ -80,7 +81,15 @@ def is_out_of_gas(tx_hash):
 
 
 def get_error_from_stack(response_data):
-    stack_trace = response_data["transaction"]["transaction_info"]["stack_trace"][0]
+    stack_trace = (
+    response_data.get("transaction", {})
+    .get("transaction_info", {})
+    .get("stack_trace", [])
+)
+    if isinstance(stack_trace, list) and stack_trace:
+        stack_trace = stack_trace[0]
+    else:
+        return "No stack trace found"
     if stack_trace.get("line") == "null" and stack_trace.get("line") == "null":
         return {"error_message": "OpCode: REVERT", "failure_invariant": ""}
     
@@ -122,6 +131,8 @@ def analyze_failed_transaction(from_address, to_address, block_number, tx_input,
     }
     headers = {'X-Access-Key': TENDERLY_API_KEY}
     response = safe_request(TENDERLY_SIMULATION_URL, method= "POST", headers = headers, payload= payload)
+    if response == None:
+        return ""
     #response = requests.post(TENDERLY_SIMULATION_URL, json=payload, headers=headers)
 
     #response_data = response.json()
@@ -152,7 +163,7 @@ def fetch_transaction_info(tx_hash):
         
         error_message = data.get("error_message")
 
-        if error_message == "out of gas":
+        if "out of gas" in error_message:
             return result
         
         # Extract transaction details
@@ -170,8 +181,6 @@ def fetch_transaction_info(tx_hash):
         
         # Simulate the failed transaction
         error_analysis = analyze_failed_transaction(from_address, to_address, block_number, tx_input, gas, gas_price, value, tx_index)
-        if error_analysis == 429:
-            return None
         result.update(error_analysis)
     else:
         result["Status"] = True
