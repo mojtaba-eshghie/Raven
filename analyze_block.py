@@ -4,7 +4,7 @@ import pandas as pd
 import pyarrow.parquet as pq
 import pyarrow as pa
 
-file_path = r"Failysis\ethereum_failed_transactions\dune_results\all_hashes.parquet"
+file_path = r"ethereum_failed_transactions\dune_results\all_hashes.parquet"
 
 def get_invariant(hash):
     result = fetch_transaction_info(hash)
@@ -45,7 +45,7 @@ def get_random_transactions(transaction_nr, file_name):
     cols = random_rows["hash"]
     for row in cols:
         res = get_invariant(row)
-        print(res)
+        print(f"Hash: {row} invariant: {res}")
 
 get_random_transactions(1000, file_path)
 
