@@ -1,10 +1,12 @@
 from analyze_transaction import fetch_transaction_info
+import logging
 
 import pandas as pd
 import pyarrow.parquet as pq
 import pyarrow as pa
+import time
 
-file_path = r"ethereum_failed_transactions\dune_results\all_hashes.parquet"
+file_path = r"Failysis\ethereum_failed_transactions\dune_results\all_hashes.parquet"
 
 def get_invariant(hash):
     result = fetch_transaction_info(hash)
@@ -39,15 +41,27 @@ def run_all_invariants(file_name):
     pq.write_table(table, file_name)  # This will overwrite the existing file
 
 def get_random_transactions(transaction_nr, file_name):
+    logging.basicConfig(
+        filename="check_correctness_500.log", 
+        level=logging.INFO,
+        format="%(asctime)s - %(levelname)s - %(message)s"
+    )
+    
+    start_time = time.time()
+    
     print("read file")
     df = pd.read_parquet(file_name)
-    random_rows = df.sample(n=transaction_nr, random_state=42)  # Set random_state for reproducibility
+    random_rows = df.sample(n=transaction_nr, random_state=30)  # Set random_state for reproducibility
+    # first state was 42
+    
     cols = random_rows["hash"]
+    
     for row in cols:
         res = get_invariant(row)
-        print(f"Hash: {row} invariant: {res}")
+        logging.info(f"hash: {row}, invariant: {res}")
+    
+    end_time = time.time()
+    total_time = end_time - start_time
+    logging.info(f"Total execution time: {total_time:.4f} seconds")
 
-get_random_transactions(1000, file_path)
-
-
-#run_all_invariants(file_path)
+get_random_transactions(500, file_path)
