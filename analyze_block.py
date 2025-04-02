@@ -42,7 +42,7 @@ def run_all_invariants(file_name):
 
 def get_random_transactions(transaction_nr, file_name):
     logging.basicConfig(
-        filename="failed_transactions_second_try.log", 
+        filename="check_correctness_500.log", 
         level=logging.INFO,
         format="%(asctime)s - %(levelname)s - %(message)s"
     )
@@ -51,7 +51,8 @@ def get_random_transactions(transaction_nr, file_name):
     
     print("read file")
     df = pd.read_parquet(file_name)
-    random_rows = df.sample(n=transaction_nr, random_state=42)  # Set random_state for reproducibility
+    random_rows = df.sample(n=transaction_nr, random_state=30)  # Set random_state for reproducibility
+    # first state was 42
     
     cols = random_rows["hash"]
     
@@ -63,4 +64,4 @@ def get_random_transactions(transaction_nr, file_name):
     total_time = end_time - start_time
     logging.info(f"Total execution time: {total_time:.4f} seconds")
 
-get_random_transactions(10000, file_path)
+get_random_transactions(500, file_path)
