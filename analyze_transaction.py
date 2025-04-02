@@ -14,8 +14,6 @@ MAX_RETRIES = 10
 INITIAL_RETRY_DELAY = 0  # Start at 1 second
 BACKOFF_MULTIPLIER = 2  # Exponential growth factor
 
-
-
 def safe_request(url, method="GET", headers=None, payload=None):
     """Helper function to handle API requests with exponential backoff."""
     retry_delay = INITIAL_RETRY_DELAY
@@ -34,6 +32,10 @@ def safe_request(url, method="GET", headers=None, payload=None):
 
     return None
 
+def strip_comments(line):
+    parts = line.split("//", 1)
+    return parts[0].strip() if parts else ""
+
 def get_errorlines(contract, line_number):
     """Analyze contract source code around the error line."""
     source_code = contract["source"].splitlines()
@@ -42,21 +44,19 @@ def get_errorlines(contract, line_number):
         if "revert" in source_code[line_number - 1].strip() and not "if" in source_code[line_number - 1].strip():
             for j in range(line_number - 2, -1, -1):
                 if not source_code[j].strip().startswith("//"):
-                    error_lines.insert(0, source_code[j].strip())
+                    error_lines.insert(0, strip_comments(source_code[j]))
                     if "if" in source_code[j].strip() or "function" in source_code[j].strip():
                         break
-        error_lines.append(source_code[line_number - 1].strip())
+        error_lines.append(strip_comments(source_code[line_number - 1]))
         if ");" not in source_code[line_number -1] and "}" not in source_code[line_number -1]:
             for i in range(line_number, len(source_code), 1):
                 if not source_code[i].strip().startswith("//"):
-                    error_lines.append(source_code[i].strip())
+                    error_lines.append(strip_comments(source_code[i]))
                     if ");" in source_code[i] or "}" in source_code[i]:
                         break
     error_lines = " ".join(error_lines)
     return error_lines
 
-
-# 0x96f6845cf90899d5e1fc1a594720c5d77e87107ab46e7af4c79d3ffe9ce22ebd -> get rid of comments on the same line as code
 def is_out_of_gas(tx_hash):
     """Fetch transaction details from Tenderly's public API."""
     headers = {
