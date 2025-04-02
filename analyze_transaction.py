@@ -43,8 +43,8 @@ def get_errorlines(contract, line_number):
             for j in range(line_number - 2, -1, -1):
                 if not source_code[j].strip().startswith("//"):
                     error_lines.insert(0, source_code[j].strip())
-                if "if" in source_code[j]:
-                    break
+                    if "if" in source_code[j].strip() or "function" in source_code[j].strip():
+                        break
         error_lines.append(source_code[line_number - 1].strip())
         if ");" not in source_code[line_number -1] and "}" not in source_code[line_number -1]:
             for i in range(line_number, len(source_code), 1):
@@ -55,6 +55,8 @@ def get_errorlines(contract, line_number):
     error_lines = " ".join(error_lines)
     return error_lines
 
+
+# 0x96f6845cf90899d5e1fc1a594720c5d77e87107ab46e7af4c79d3ffe9ce22ebd -> get rid of comments on the same line as code
 def is_out_of_gas(tx_hash):
     """Fetch transaction details from Tenderly's public API."""
     headers = {
@@ -127,9 +129,10 @@ def analyze_failed_transaction(from_address, to_address, block_number, tx_input,
     }
     headers = {'X-Access-Key': TENDERLY_API_KEY}
     response = safe_request(TENDERLY_SIMULATION_URL, method= "POST", headers = headers, payload= payload)
-
+    
     with open("test.txt", "w") as file:
         json.dump(response, file, indent=4)
+    
     if response == None:
         return {"failure_message": "", "failure_invariant": ""}
     #response = requests.post(TENDERLY_SIMULATION_URL, json=payload, headers=headers)
