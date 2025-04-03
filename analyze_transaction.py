@@ -202,18 +202,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# out of gas
-#0x5f7eac6d1a746cabbc76b5a1f29c4449b3342b39aef646952f5d591aecdf7d6f
-
-# multi line require
-#0xc0edf110029f19d26a90be43a4c2212a75e6a89f429219f6b1cf7a3d02a26d53
-
-# require
-#0x3fa6ac025485bf482a632e1d14e09902b5a176cb455ed081c3f9b8da2036a4fc
-
-# working transaction
-#0xc390f5f74130c0821dced50501fea66dd2d684a29887cfb205e2f12edaa2c523
-
-# Problem: doesnt have the error in the trace, and gives out of gas even though not true
-#0x030672dcf80cc566c44902f526dd65c78e9e331d0e8ba7257c392a6a2d6b7146
