@@ -10,11 +10,21 @@ TENDERLY_PUBLIC_TX_URL = "https://api.tenderly.co/api/v1/public-contract/1/tx/"
 
 TENDERLY_API_KEY = "QBaUP1mgKshN32lxAUgaGxkksjBXVoo8"
 
-MAX_RETRIES = 10
-INITIAL_RETRY_DELAY = 0  # Start at 1 second
-BACKOFF_MULTIPLIER = 2  # Exponential growth factor
+MAX_RETRIES = 20
+INITIAL_RETRY_DELAY = 1
+BACKOFF_MULTIPLIER = 2
 
-def safe_request(url, method="GET", headers=None, payload=None):
+import logging
+
+# Set up a dedicated error logger
+error_logger = logging.getLogger("error_logger")
+if not error_logger.hasHandlers():
+    handler = logging.FileHandler("errors.log")
+    handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+    error_logger.addHandler(handler)
+    error_logger.setLevel(logging.ERROR)
+
+def safe_request(url, method="GET", headers=None, payload=None, hash = None):
     """Helper function to handle API requests with exponential backoff."""
     retry_delay = INITIAL_RETRY_DELAY
 
@@ -25,11 +35,9 @@ def safe_request(url, method="GET", headers=None, payload=None):
             response = requests.get(url, headers=headers)
         if response.status_code == 200:
             return response.json()
-        else:    
-            print(f"Received status code {response.status_code}. Retrying in {retry_delay} seconds...")
         time.sleep(retry_delay)
         retry_delay *= BACKOFF_MULTIPLIER
-
+    error_logger.error(f"hash: {hash} Failed request to {url} after {MAX_RETRIES} attempts. Last status: {response.status_code if 'response' in locals() else 'No response'}")
     return None
 
 def strip_comments(line):
@@ -57,24 +65,7 @@ def get_errorlines(contract, line_number):
     error_lines = " ".join(error_lines)
     return error_lines
 
-def is_out_of_gas(tx_hash):
-    """Fetch transaction details from Tenderly's public API."""
-    headers = {
-        'authority': 'api.tenderly.co',
-        'accept': 'application/json, text/plain, */*',
-        'referer': 'https://dashboard.tenderly.co/',
-    }
-
-    data = safe_request(f"{TENDERLY_PUBLIC_TX_URL}{tx_hash}", headers=headers)
-        
-    error_message = data.get("error_message")
-
-    if "out of gas" in error_message:
-        return True
-    return False
-
-
-def get_error_from_stack(response_data):
+def get_error_from_stack(response_data, hash):
     stack_trace = (
     response_data.get("transaction", {})
     .get("transaction_info", {})
@@ -83,11 +74,12 @@ def get_error_from_stack(response_data):
     if isinstance(stack_trace, list) and stack_trace:
         stack_trace = stack_trace[0]
     else:
+        error_logger.error(f"hash: {hash} No stack trace found in response")
         return {"failure_message": "", "failure_invariant": "no stack trace found"}
-
     if stack_trace.get("line") == None and stack_trace.get("file_index") == None:
         for id in response_data.get("contracts"):
             if stack_trace.get("contract") == id.get("id"):
+                error_logger.error(f"hash: {hash} No reason found in stack trace")
                 return {"failure_message": "", "failure_invariant": "no reason found"}
         return {"failure_message": f"OpCode: {stack_trace.get('op')}", "failure_invariant": "no source code found"}
     
@@ -108,9 +100,10 @@ def get_error_from_stack(response_data):
                         error_lines = get_errorlines(data, error_line)
                         error_details["failure_invariant"] = error_lines
                         return error_details
+    error_logger.error(f"hash: {hash} Invariant is empty")
     return error_details
 
-def analyze_failed_transaction(from_address, to_address, block_number, tx_input, gas, gas_price, value, tx_index,
+def analyze_failed_transaction(from_address, to_address, block_number, tx_input, gas, gas_price, value, tx_index, tx_hash,
                           simulation_mode="full", network_id="1", save=False):
     """Simulate a transaction using Tenderly API."""
     payload = {
@@ -125,22 +118,20 @@ def analyze_failed_transaction(from_address, to_address, block_number, tx_input,
         "transaction_index": tx_index,
         "simulation_type": simulation_mode,
         "estimate_gas": True,
-        "save": False,
+        "save": True,
     }
     headers = {'X-Access-Key': TENDERLY_API_KEY}
-    response = safe_request(TENDERLY_SIMULATION_URL, method= "POST", headers = headers, payload= payload)
+    response = safe_request(TENDERLY_SIMULATION_URL, method= "POST", headers = headers, payload= payload, hash=tx_hash)
     
     with open("test.txt", "w") as file:
         json.dump(response, file, indent=4)
     
     if response == None:
         return {"failure_message": "", "failure_invariant": ""}
-    #response = requests.post(TENDERLY_SIMULATION_URL, json=payload, headers=headers)
-
-    #response_data = response.json()
-    # Extract last executed call details
     
-    return get_error_from_stack(response)
+    
+    
+    return get_error_from_stack(response, tx_hash)
 
 
 def fetch_transaction_info(tx_hash):
@@ -151,7 +142,10 @@ def fetch_transaction_info(tx_hash):
         'referer': 'https://dashboard.tenderly.co/',
     }
 
-    data = safe_request(f"{TENDERLY_PUBLIC_TX_URL}{tx_hash}", headers=headers)
+    data = safe_request(f"{TENDERLY_PUBLIC_TX_URL}{tx_hash}", headers=headers, hash = tx_hash)
+    with open("test1.txt", "w") as file:
+        json.dump(data, file, indent=4)
+
 
     result = {}
 
@@ -162,15 +156,12 @@ def fetch_transaction_info(tx_hash):
         
         error_message = data.get("error_message")
 
-        if "out of gas" in error_message:
-            return result
-        
         # Extract transaction details
         block_number = int(data.get("block_number", 0))
         from_address = data.get("from")
         to_address = data.get("to")
         tx_input = data.get("input")
-        gas = int(data.get("gas_limit", 0))
+        gas = int(data.get("gas", 0))
         gas_price = int(data.get("gas_price", 0))
         value = data.get("value", "0x0")
         if value == "0x":
@@ -178,8 +169,25 @@ def fetch_transaction_info(tx_hash):
         value = int(value, 16)
         tx_index = int(data.get("index", 0))
         
+        tx_data = {
+            "block_number": int(data.get("block_number", 0)),
+            "from_address": data.get("from"),
+            "to_address": data.get("to"),
+            "tx_input": data.get("input"),
+            "gas": int(data.get("gas", 0)),
+            "gas_price": int(data.get("gas_price", 0)),
+            "value": value,
+            "tx_index": int(data.get("index", 0)),
+        }
+        result.update(tx_data)
+        
+        if "out of gas" in error_message:
+            result["failure_message"] = "out of gas"
+            result["failure_invariant"] = "out of gas"
+            return result
+        
         # Simulate the failed transaction
-        error_analysis = analyze_failed_transaction(from_address, to_address, block_number, tx_input, gas, gas_price, value, tx_index)
+        error_analysis = analyze_failed_transaction(from_address, to_address, block_number, tx_input, gas, gas_price, value, tx_index, tx_hash)
         result.update(error_analysis)
     else:
         result["status"] = True
