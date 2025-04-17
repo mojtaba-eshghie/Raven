@@ -18,8 +18,8 @@ def read_parquet(file_name = "transactions.parquet"):
 
 def write_to_file(dict_list, file_name="transactions.parquet"):
     EXPECTED_COLUMNS = [
-        'status', 'failure_reason', 'block_number', 'from_address', 'to_address', 
-        'tx_input', 'gas', 'gas_price', 'value', 'tx_index', 'failure_message', 'failure_invariant'
+        'hash', 'failure_reason', 'block_number', 'from_address', 'to_address', 
+        'tx_input', 'gas', 'gas_price', 'gas_limit', 'value', 'tx_index', 'failure_message', 'failure_invariant'
     ]
 
     cleaned_rows = []
@@ -73,6 +73,7 @@ def get_rand_trans(transaction_nr, input_file, output_file):
     total_time = end_time - start_time
     logging.info(f"Total execution time: {total_time:.4f} seconds")
 
+
 def get_rand_trans_multi(transaction_nr, input_file, output_file):
     general_logger = logging.getLogger("main_logger")
     if not general_logger.hasHandlers():
@@ -111,7 +112,7 @@ def get_rand_trans_multi(transaction_nr, input_file, output_file):
 def run_all_mutli(input_file, output_file):
     general_logger = logging.getLogger("main_logger")
     if not general_logger.hasHandlers():
-        handler = logging.FileHandler("main.log")
+        handler = logging.FileHandler(output_file)
         handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
         general_logger.addHandler(handler)
         general_logger.setLevel(logging.INFO)
@@ -120,31 +121,37 @@ def run_all_mutli(input_file, output_file):
     cols = df["hash"]
     batch = []
     BATCH_SIZE = 1000
-    count = 0
 
     def process_row(row):
-        res = fetch_transaction_info(row)
-        general_logger.info(f"hash: {row}, invariant: {res.get('failure_invariant')}")
-        return res
+        try:
+            res = fetch_transaction_info(row)
+            general_logger.info(f"hash: {row}, invariant: {res.get('failure_invariant')}")
+            return res
+        except Exception as e:
+            general_logger.error(f"Exception in row {row}: {str(e)}")
+            return None
     
     with ThreadPoolExecutor() as executor:
         futures = [executor.submit(process_row, row) for row in cols]
         for idx, future in enumerate(as_completed(futures), 1):
-            result = future.result()
-            batch.append(result)
-            count += 1
-            if len(batch) >= BATCH_SIZE:
-                write_to_file(batch)
-                general_logger.info(f"Written to file after batch of {BATCH_SIZE}")
+            try:
+                result = future.result()
+                if result:
+                    batch.append(result)
+            except Exception as e:
+                general_logger.error(f"Error processing future at index {idx}: {e}")
+            if idx % BATCH_SIZE == 0:
+                write_to_file(batch, file_name = "transactions_CORRECT.parquet")
+                general_logger.info("Written to file")
                 batch.clear()
-    if batch:
-        write_to_file(batch)
-        general_logger.info(f"Final batch written: {len(batch)}")
-
-
+        if batch:
+            write_to_file(batch, file_name = "transactions_CORRECT.parquet")
+        
     end_time = time.time()
     total_time = end_time - start_time
-    general_logger.info(f"Total execution time: {total_time:.4f} seconds")
+    logging.info(f"Total execution time: {total_time:.4f} seconds")
 
 #get_rand_trans(10000, file_path, "check_correctness_500.log")
-get_rand_trans_multi(1000000, file_path, "main.log")
+#get_rand_trans_multi(1000000, file_path, "main.log")
+
+run_all_mutli(file_path, "error_test.log")
