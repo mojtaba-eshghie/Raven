@@ -3,13 +3,15 @@ import sys
 import json
 import argparse
 import time
+from ethereum_src import has_ethereum_src
 
 # API Endpoints and Keys (Consider storing sensitive keys securely using environment variables)
 #TENDERLY_SIMULATION_URL = "https://api.tenderly.co/api/v1/account/Melissa194/project/project/simulate"
 TENDERLY_PUBLIC_TX_URL = "https://api.tenderly.co/api/v1/public-contract/1/tx/"
-TENDERLY_SIMULATION_URL = "https://api.tenderly.co/api/v1/account/Melissa200/project/project/simulate"
+TENDERLY_SIMULATION_URL = "https://api.tenderly.co/api/v1/account/Melissa300/project/project/simulate"
 #TENDERLY_API_KEY = "QBaUP1mgKshN32lxAUgaGxkksjBXVoo8"
-TENDERLY_API_KEY = "YjWv8sRGMjsn7nWjM36rMIF9gBJRNoqK"
+#TENDERLY_API_KEY = "YjWv8sRGMjsn7nWjM36rMIF9gBJRNoqK"
+TENDERLY_API_KEY = "SXTF9jedR16szEIcQ0nfaPzIAAVld06X"
 MAX_RETRIES = 20
 INITIAL_RETRY_DELAY = 2
 BACKOFF_MULTIPLIER = 2
@@ -39,6 +41,13 @@ def safe_request(url, method="GET", headers=None, payload=None, hash = None):
         retry_delay *= BACKOFF_MULTIPLIER
     error_logger.error(f"hash: {hash} Failed request to {url} after {MAX_RETRIES} attempts. Last status: {response.status_code if 'response' in locals() else 'No response'}")
     return None
+
+def has_tenderly_src(bytecode):
+    if bytecode is None:
+        return False
+    else:
+        return True
+
 
 def strip_comments(line):
     parts = line.split("//", 1)
@@ -112,49 +121,75 @@ def get_errorlines(contract, line_number):
     return error_lines
 
 def get_error_from_stack(response_data, hash):
-    stack_trace = (
-    response_data.get("transaction", {})
-    .get("transaction_info", {})
-    .get("stack_trace", [])
-)
-    if isinstance(stack_trace, list) and stack_trace:
-        stack_trace = stack_trace[0]
-    else:
-        error_logger.error(f"hash: {hash} No stack trace found in response")
-        return {"failure_message": "", "failure_invariant": "no stack trace found"}
-    if "out of gas" in stack_trace.get("error", ""):
-        return {"failure_message": "out of gas", "failure_invariant": "out of gas"}
-    if stack_trace.get("line") == None and stack_trace.get("file_index") == None:
-        for id in response_data.get("contracts"):
-            if stack_trace.get("contract") == id.get("id"):
-                error_logger.error(f"hash: {hash} No reason found in stack trace")
-                return {"failure_message": "", "failure_invariant": "no reason found"}
-        return {"failure_message": f"OpCode: {stack_trace.get('op')}", "failure_invariant": "no source code found"}
-    
-    if stack_trace.get("error") != "null":
-        file_index = stack_trace.get("file_index", "")
-        contract_id = stack_trace.get("contract", "")
-        error_line = stack_trace.get("line", "")
-        error_message = stack_trace.get("error_reason", "")
-        function_name = stack_trace.get("code", "")
-        error_details = {"failure_message": error_message, "failure_invariant": []}
+    error_details = {}
 
-        contracts = response_data["contracts"]
-        for contract in contracts:
-            if contract_id in contract.get("id"):
-                contract_data = contract["data"]["contract_info"]
-                for data in contract_data:
-                    if data.get("id") == file_index:
-                        error_lines = get_errorlines(data, error_line)
-                        if "require" not in error_lines and "revert" not in error_lines and "assert" not in error_lines and "contract" in error_lines:
-                            err_lns = further_analysis(data, function_name, error_message)
-                            if err_lns != "":
-                                error_lines = err_lns
-                        error_details["failure_invariant"] = error_lines
-                        return error_details
-    error_logger.error(f"hash: {hash} Invariant is empty")
+    try:
+        stack_trace = (
+            response_data.get("transaction", {})
+            .get("transaction_info", {})
+            .get("stack_trace", [])
+        )
+        to_address = response_data.get("transaction", {}).get("to", "")
+
+        # Check if stack_trace is a list and contains at least one item
+        if isinstance(stack_trace, list) and stack_trace:
+            stack_trace = stack_trace[0]
+
+        # Check if the error contains 'out of gas'
+        if "out of gas" in stack_trace.get("error", ""):
+            return {"failure_message": stack_trace.get("error"), "failure_invariant": ""}
+
+        # Handle non-null error messages
+        if stack_trace.get("error") != "null":
+            file_index = stack_trace.get("file_index", "")
+            contract_id = stack_trace.get("contract", "")
+            error_line = stack_trace.get("line", "")
+            error_message = stack_trace.get("error_message", "")
+            
+            # If the error_message is empty, use the general error
+            if error_message == "":
+                error_message = stack_trace.get("error", "")
+
+            function_name = stack_trace.get("code", "")
+
+            # Populate the error details dictionary
+            error_details = {
+                "failure_message": error_message,
+                "failure_invariant": "",
+                "tenderly_src": False,
+                "failure_function": function_name,
+                "failure_contract": contract_id
+            }
+
+            if file_index is None:
+                error_details.update({"failure_reason": "no source code found"})
+                return error_details
+            try:
+                contracts = response_data.get("contracts", [])
+                for contract in contracts:
+                    if to_address in contract.get("address", []):
+                        error_details.update({"tenderly_src": has_tenderly_src(contract.get("deployed_bytecode"))})
+                    if contract_id in contract.get("id", ""):
+                        contract_data = contract.get("data", {}).get("contract_info", [])
+                        for data in contract_data:
+                            if data.get("id") == file_index:
+                                error_details.update({"failure_src": data.get("name", "")})
+                                error_lines = get_errorlines(data, error_line)
+                                if "require" not in error_lines and "revert" not in error_lines and "assert" not in error_lines and "contract" in error_lines:
+                                    err_lns = further_analysis(data, function_name, error_message)
+                                    if err_lns != "":
+                                        error_lines = err_lns
+                                error_details["failure_invariant"] = error_lines
+                                return error_details
+            except KeyError as e:
+                error_logger.error(f"KeyError encountered while processing contracts: {e}")
+            except Exception as e:
+                error_logger.error(f"Unexpected error occurred while processing contracts: {e}")
+    except KeyError as e:
+        error_logger.error(f"KeyError encountered while processing response data: {e}")
+    except Exception as e:
+        error_logger.error(f"Unexpected error occurred: {e}")
     return error_details
-
 def analyze_failed_transaction(from_address, to_address, block_number, tx_input, gas, gas_price, value, tx_index, tx_hash,
                           simulation_mode="full", network_id="1", save=False):
     """Simulate a transaction using Tenderly API."""
@@ -170,21 +205,42 @@ def analyze_failed_transaction(from_address, to_address, block_number, tx_input,
         "transaction_index": tx_index,
         "simulation_type": simulation_mode,
         "estimate_gas": True,
-        "save": False,
+        "save": save,
     }
     headers = {'X-Access-Key': TENDERLY_API_KEY}
     response = safe_request(TENDERLY_SIMULATION_URL, method= "POST", headers = headers, payload= payload, hash=tx_hash)
     
+    """
     with open("test.txt", "w") as file:
         json.dump(response, file, indent=4)
+    """
+    result = {
+        "failure_message": "",
+        "failure_invariant": "",
+        "json_response": json.dumps(response) if response is not None else  "not found",
+        "json_response": "",
+    }
+
+    if response is None:
+        return result
+
+    # Safely access nested error message
+    error_message = response.get("transaction", {}).get("error_message", "")
+
+    # Known invariant failure patterns
+    known_failures = [
+        "arithmetic underflow or overflow",
+        "division or modulo by zero"
+    ]
+
+    if any(keyword in error_message for keyword in known_failures):
+        result["failure_message"] = error_message
+        result["failure_invariant"] = ""
+        return result
     
-    if response == None:
-        return {"failure_message": "", "failure_invariant": ""}
-    if "arithmetic underflow or overflow" in response.get("transaction", "").get("error_message", "") or "division or modulo by zero" in response.get("transaction", "").get("error_message", ""):
-        err = response.get("transaction").get('error_message')
-        return {"failure_message": err, "failure_invariant": err}   
-    
-    return get_error_from_stack(response, tx_hash)
+    error_details = get_error_from_stack(response, tx_hash)
+    result.update(error_details)
+    return result
 
 
 def fetch_transaction_info(tx_hash):
@@ -197,13 +253,13 @@ def fetch_transaction_info(tx_hash):
 
     data = safe_request(f"{TENDERLY_PUBLIC_TX_URL}{tx_hash}", headers=headers, hash = tx_hash)
 
-
     result = {}
     block_number = int(data.get("block_number", 0))
     from_address = data.get("from")
     to_address = data.get("to")
     tx_input = data.get("input")
-    gas = int(data.get("gas", 0))
+    gas = int(data.get("gas_used", 0))
+    gas_limit = int(data.get("gas", 0))
     gas_price = int(data.get("gas_price", 0))
     value = data.get("value", "0x0")
     if value == "0x":
@@ -217,11 +273,14 @@ def fetch_transaction_info(tx_hash):
             "from_address": data.get("from"),
             "to_address": data.get("to"),
             "tx_input": data.get("input"),
-            "gas": int(data.get("gas", 0)),
+            "gas_used": int(data.get("gas_used", 0)),
             "gas_price": int(data.get("gas_price", 0)),
             "value": value,
             "tx_index": int(data.get("index", 0)),
-            "gas_limit": int(data.get("gas_limit", 0))
+            "gas_limit": int(data.get("gas", 0)),
+            "timestamp": data.get("timestamp", ""),
+            "etherscan_src": has_ethereum_src(to_address),
+            "json_response": ""
         }
     result.update(tx_data)
 
@@ -230,27 +289,12 @@ def fetch_transaction_info(tx_hash):
         result["status"] = False
         error_message = data.get("error_message")
         result["failure_reason"] = error_message
+        result["failure_invariant"] = ""
 
-        if "out of gas" in error_message:
-            result["failure_invariant"] = "out of gas"
+        if "out of gas" in error_message or "arithmetic overflow or underflow" in error_message or "division or modulo by zero" in error_message:
             return result
         
-        if "arithmetic overflow or underflow" in error_message:
-            result["failure_invariant"] = "arithmetic overflow or underflow"
-            return result
-        
-        if "division or modulo by zero" in error_message:
-            result["failure_invariant"] = "division or modulo by zero"
-            return result
-        
-        # Extract transaction details
-        if "out of gas" in error_message:
-            result["failure_message"] = "out of gas"
-            result["failure_invariant"] = "out of gas"
-            return result
-        
-        # Simulate the failed transaction
-        error_analysis = analyze_failed_transaction(from_address, to_address, block_number, tx_input, gas, gas_price, value, tx_index, tx_hash)
+        error_analysis = analyze_failed_transaction(from_address, to_address, block_number, tx_input, gas_limit, gas_price, value, tx_index, tx_hash)
         result.update(error_analysis)
     else:
         result["status"] = True
