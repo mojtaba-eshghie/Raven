@@ -12,7 +12,7 @@ TENDERLY_SIMULATION_URL = "https://api.tenderly.co/api/v1/account/Melissa300/pro
 #TENDERLY_API_KEY = "QBaUP1mgKshN32lxAUgaGxkksjBXVoo8"
 #TENDERLY_API_KEY = "YjWv8sRGMjsn7nWjM36rMIF9gBJRNoqK"
 TENDERLY_API_KEY = "SXTF9jedR16szEIcQ0nfaPzIAAVld06X"
-MAX_RETRIES = 20
+MAX_RETRIES = 30
 INITIAL_RETRY_DELAY = 2
 BACKOFF_MULTIPLIER = 2
 
@@ -50,8 +50,9 @@ def has_tenderly_src(bytecode):
 
 
 def strip_comments(line):
-    parts = line.split("//", 1)
-    return parts[0].strip() if parts else ""
+    line = line.split("//", 1)[0]
+    line = line.split("#", 1)[0]
+    return line.strip()
 
 def extract_function(source_code, fn_line_start):
     function_lines = []
@@ -137,7 +138,7 @@ def get_error_from_stack(response_data, hash):
 
         # Check if the error contains 'out of gas'
         if "out of gas" in stack_trace.get("error", ""):
-            return {"failure_message": stack_trace.get("error"), "failure_invariant": ""}
+            return {"failure_reason": stack_trace.get("error"), "failure_invariant": ""}
 
         # Handle non-null error messages
         if stack_trace.get("error") != "null":
@@ -210,10 +211,10 @@ def analyze_failed_transaction(from_address, to_address, block_number, tx_input,
     headers = {'X-Access-Key': TENDERLY_API_KEY}
     response = safe_request(TENDERLY_SIMULATION_URL, method= "POST", headers = headers, payload= payload, hash=tx_hash)
     
-    """
+    #"""
     with open("test.txt", "w") as file:
         json.dump(response, file, indent=4)
-    """
+    #"""
     result = {
         "failure_message": "",
         "failure_invariant": "",

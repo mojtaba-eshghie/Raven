@@ -19,8 +19,8 @@ def has_ethereum_src(address, max_retries = 1):
         response = requests.get(base_url, params=params)
         if response.status_code == 200:
             data = response.json()
-            if data["result"] is "Max daily rate limit reached":
-                return data["result"]
+            if "Max daily rate limit reached" in data["result"]:
+                return ValueError(data["result"])
 
             # Now check if it's a list and not a string
             if isinstance(data["result"], list) and len(data["result"]) > 0:
