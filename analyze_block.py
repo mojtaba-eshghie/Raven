@@ -24,7 +24,7 @@ def write_to_file(dict_list, file_name="transactions.parquet"):
     EXPECTED_COLUMNS = [
         'hash', 'failure_reason', 'block_number', 'from_address', 'to_address',
         'tx_input', 'gas_used', 'gas_price', 'gas_limit', 'value', 'tx_index', 'failure_message', 'failure_invariant', 
-        'tenderly_src', 'etherscan_src', 'json_response', 'failure_src', 'failure_function', 'failure_contract', 'timestamp'
+        'tenderly_src', 'etherscan_src', 'failure_src', 'failure_function', 'failure_contract', 'timestamp'
     ]
 
     cleaned_rows = []
@@ -101,12 +101,11 @@ def get_rand_trans_multi(transaction_nr, input_file, log_file, output_file):
     BATCH_SIZE = 1000
 
     def process_row(row):
-        try:
-            res = fetch_transaction_info(row)
-            return res
-        except Exception as e:
-            general_logger.error(f"Exception in row {row}: {str(e)}")
-            return None
+        res = fetch_transaction_info(row)
+        if res is None:
+            general_logger.error(f"Error for hash {row}: {str(e)}")
+            return {"hash": row}
+        return res
     
     with ThreadPoolExecutor() as executor:
         futures = [executor.submit(process_row, row) for row in cols]
