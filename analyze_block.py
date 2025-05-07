@@ -24,7 +24,7 @@ def write_to_file(dict_list, file_name="transactions.parquet"):
     EXPECTED_COLUMNS = [
         'hash', 'failure_reason', 'block_number', 'from_address', 'to_address',
         'tx_input', 'gas_used', 'gas_price', 'gas_limit', 'value', 'tx_index', 'failure_message', 'failure_invariant', 
-        'tenderly_src', 'etherscan_src', 'failure_src', 'failure_function', 'failure_contract', 'timestamp'
+        'tenderly_src', 'etherscan_src', 'failure_src', 'failure_function', 'failure_contract', 'timestamp', 'failure_src_code'
     ]
 
     cleaned_rows = []
@@ -158,7 +158,6 @@ def run_all_mutli(input_file, log_file, output_file):
             except Exception as e:
                 general_logger.error(f"Error processing future at index {idx}: {e}")
             if idx % BATCH_SIZE == 0:
-                print("Sh")
                 write_to_file(batch, file_name = output_file)
                 general_logger.info("Written batch to file")
                 batch.clear()
@@ -169,10 +168,6 @@ def run_all_mutli(input_file, log_file, output_file):
     total_time = end_time - start_time
     general_logger.info(f"Total execution time: {total_time:.4f} seconds")
 
-#get_rand_trans(10000, file_path, "check_correctness_500.log")
-#get_rand_trans_multi(1000000, file_path, "main.log")
-
-#run_all_mutli(file_path, "error_test.log")
-#file_path = "get_error_hashes.parquet"
-get_rand_trans_multi(20000, file_path, "test.log", "WithLock.parquet")
-#run_all_mutli(file_path, "test.log", "error_all.parquet")
+file_path = "Failysis/datasets/analysis/Unique_require.parquet"
+run_all_mutli(file_path,  "test.log", "WithSourceCode.parquet")
+#get_rand_trans_multi(20000, file_path, "test.log", "WithSourceCode.parquet")
