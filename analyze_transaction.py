@@ -175,6 +175,7 @@ def get_error_from_stack(response_data, hash):
                         for data in contract_data:
                             if data.get("id") == file_index:
                                 error_details.update({"failure_src": data.get("name", "")})
+                                error_details.update({"failure_src_code": data.get("source", "") })
                                 error_lines = get_errorlines(data, error_line)
                                 if "require" not in error_lines and "revert" not in error_lines and "assert" not in error_lines and "contract" in error_lines:
                                     err_lns = further_analysis(data, function_name, error_message)
@@ -191,6 +192,7 @@ def get_error_from_stack(response_data, hash):
     except Exception as e:
         error_logger.error(f"Unexpected error occurred: {e}")
     return error_details
+
 def analyze_failed_transaction(from_address, to_address, block_number, tx_input, gas, gas_price, value, tx_index, tx_hash,
                           simulation_mode="full", network_id="1", save=False):
     """Simulate a transaction using Tenderly API."""
