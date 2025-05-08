@@ -58,7 +58,7 @@ def get_solidity_source(file_name, source_code):
         return source_code["content"]
     return None
 
-def get_src(address, file, max_retries=2):
+def get_src(address, max_retries=2):
     params = {
         "module": "contract",
         "action": "getsourcecode",
@@ -73,28 +73,14 @@ def get_src(address, file, max_retries=2):
         response = requests.get(base_url, params=params)
         if response.status_code == 200:
             data = response.json()
-            with open("fuuuuuck.txt", "w") as file:
-                json.dump(data, file, indent=4)
 
             if "Max daily rate limit reached" in data["result"]:
                 raise ValueError(data["result"])
 
             if isinstance(data["result"], list) and len(data["result"]) > 0:
                 contract_info = data["result"][0]
-                print(contract_info)
                 source_code = contract_info.get("SourceCode", '')
-
-                
-                if source_code == '':
-                    return ""
-                else:
-                    matched_code = get_solidity_source(file, source_code)
-                    if matched_code:
-                        return matched_code
-                    else:
-                        print(f"File {file} not found in the contract source code.")
-                        return None
-
+                return source_code
         else:
             print(f"Request failed with status code {response.status_code}, retrying...")
             retries += 1
@@ -104,10 +90,10 @@ def get_src(address, file, max_retries=2):
     return None
 
 def main():
-    address = "0x43506849d7c04f9138d1a2050bbf3a0c054402dd"
+    address = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
     file = "FiatTokenV1.sol"
 
-    source_code = get_src(address, file)
+    source_code = get_src(address)
 
     if source_code:
         print("Source code found:\n", source_code)
