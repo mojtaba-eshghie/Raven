@@ -4,6 +4,7 @@ import json
 import argparse
 import time
 from ethereum_src import has_ethereum_src
+import re
 
 # API Endpoints and Keys (Consider storing sensitive keys securely using environment variables)
 #TENDERLY_SIMULATION_URL = "https://api.tenderly.co/api/v1/account/Melissa194/project/project/simulate"
@@ -105,6 +106,12 @@ def get_errorlines(contract, line_number):
     source_code = contract["source"].splitlines()
     error_lines = []
     if len(source_code) >= line_number and line_number > 0:
+        # check if it is vyper code
+        pattern = r'^\s*assert\s+[^(\n]+(?:,\s*".*?")?'
+
+        if re.match(pattern, source_code[line_number - 1].strip()):
+            return source_code[line_number - 1]
+
         if "revert" in source_code[line_number - 1].strip() and not "if" in source_code[line_number - 1].strip():
             for j in range(line_number - 2, -1, -1):
                 if not source_code[j].strip().startswith("//"):
