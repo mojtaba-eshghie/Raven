@@ -6,41 +6,34 @@ import time
 from ethereum_src import has_ethereum_src
 import re
 
-# API Endpoints and Keys (Consider storing sensitive keys securely using environment variables)
-#TENDERLY_SIMULATION_URL = "https://api.tenderly.co/api/v1/account/Melissa194/project/project/simulate"
 TENDERLY_PUBLIC_TX_URL = "https://api.tenderly.co/api/v1/public-contract/1/tx/"
-TENDERLY_SIMULATION_URL = "https://api.tenderly.co/api/v1/account/Melissa300/project/project/simulate"
-#TENDERLY_API_KEY = "QBaUP1mgKshN32lxAUgaGxkksjBXVoo8"
-#TENDERLY_API_KEY = "YjWv8sRGMjsn7nWjM36rMIF9gBJRNoqK"
-TENDERLY_API_KEY = "SXTF9jedR16szEIcQ0nfaPzIAAVld06X"
+TENDERLY_SIMULATION_URL = "https://api.tenderly.co/api/v1/account/Melissa600/project/project/simulate"
+TENDERLY_API_KEY = "rJy7Xv-6anpER6X4V4FrU9Ac6QJX2z0R"
 MAX_RETRIES = 30
 INITIAL_RETRY_DELAY = 2
 BACKOFF_MULTIPLIER = 2
+from error_logging import error_logger
 
-import logging
-
-# Set up a dedicated error logger
-error_logger = logging.getLogger("error_logger")
-if not error_logger.hasHandlers():
-    handler = logging.FileHandler("errors.log")
-    handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-    error_logger.addHandler(handler)
-    error_logger.setLevel(logging.ERROR)
-
-def safe_request(url, method="GET", headers=None, payload=None, hash = None):
-    """Helper function to handle API requests with exponential backoff."""
+def safe_request(url, method="GET", headers=None, payload=None, hash=None):
     retry_delay = INITIAL_RETRY_DELAY
-
-    for attempt in range(MAX_RETRIES):
-        if method == "POST":
-            response = requests.post(url, json=payload, headers=headers)
-        else:
-            response = requests.get(url, headers=headers)
-        if response.status_code == 200:
-            return response.json()
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            if method == "POST":
+                response = requests.post(url, json=payload, headers=headers)
+            else:
+                response = requests.get(url, headers=headers)
+            if response.status_code == 200:
+                return response.json()
+            else:
+                error_logger.warning(f"Attempt {attempt}: Received status {response.status_code} for {url} (hash: {hash})")
+        except requests.RequestException as e:
+            error_logger.error(f"RequestException on attempt {attempt} for hash {hash} at {url}: {e}")
         time.sleep(retry_delay)
         retry_delay *= BACKOFF_MULTIPLIER
-    error_logger.error(f"hash: {hash} Failed request to {url} after {MAX_RETRIES} attempts. Last status: {response.status_code if 'response' in locals() else 'No response'}")
+    error_logger.error(
+        f"hash: {hash} Failed request to {url} after {MAX_RETRIES} attempts. "
+        f"Last status: {response.status_code if 'response' in locals() else 'No response'}"
+    )
     return None
 
 def has_tenderly_src(bytecode):
@@ -111,8 +104,7 @@ def get_errorlines(contract, line_number):
 
         if re.match(pattern, source_code[line_number - 1].strip()):
             return source_code[line_number - 1]
-
-        if "revert" in source_code[line_number - 1].strip() and not "if" in source_code[line_number - 1].strip():
+        if "revert" in source_code[line_number - 1].strip() and not "if " in source_code[line_number - 1].strip():
             for j in range(line_number - 2, -1, -1):
                 if not source_code[j].strip().startswith("//"):
                     error_lines.insert(0, strip_comments(source_code[j]))
@@ -181,8 +173,7 @@ def get_error_from_stack(response_data, hash):
                         contract_data = contract.get("data", {}).get("contract_info", [])
                         for data in contract_data:
                             if data.get("id") == file_index:
-                                error_details.update({"failure_src": data.get("name", "")})
-                                error_details.update({"failure_src_code": data.get("source", "") })
+                                error_details.update({"failure_file": data.get("name", "")})
                                 error_lines = get_errorlines(data, error_line)
                                 if "require" not in error_lines and "revert" not in error_lines and "assert" not in error_lines and "contract" in error_lines:
                                     err_lns = further_analysis(data, function_name, error_message)
@@ -201,7 +192,7 @@ def get_error_from_stack(response_data, hash):
     return error_details
 
 def analyze_failed_transaction(from_address, to_address, block_number, tx_input, gas, gas_price, value, tx_index, tx_hash,
-                          simulation_mode="full", network_id="1", save=False):
+                          simulation_mode="full", network_id="1", save=False, debug=False):
     """Simulate a transaction using Tenderly API."""
     payload = {
         "network_id": network_id,
@@ -220,10 +211,9 @@ def analyze_failed_transaction(from_address, to_address, block_number, tx_input,
     headers = {'X-Access-Key': TENDERLY_API_KEY}
     response = safe_request(TENDERLY_SIMULATION_URL, method= "POST", headers = headers, payload= payload, hash=tx_hash)
     
-    #"""
-    with open("test.txt", "w") as file:
-        json.dump(response, file, indent=4)
-    #"""
+    if debug:
+        with open("tenderly_detailed.txt", "w") as file:
+            json.dump(response, file, indent=4)
     result = {
         "failure_message": "",
         "failure_invariant": "",
@@ -253,7 +243,7 @@ def analyze_failed_transaction(from_address, to_address, block_number, tx_input,
     return result
 
 
-def fetch_transaction_info(tx_hash):
+def fetch_transaction_info(tx_hash, debug=False):
     """Fetch transaction details from Tenderly's public API."""
     headers = {
         'authority': 'api.tenderly.co',
@@ -262,6 +252,10 @@ def fetch_transaction_info(tx_hash):
     }
 
     data = safe_request(f"{TENDERLY_PUBLIC_TX_URL}{tx_hash}", headers=headers, hash = tx_hash)
+    if debug:
+        with open("tenderly_overall.txt", "w") as file:
+            json.dump(data, file, indent=4)
+
 
     result = {}
     block_number = int(data.get("block_number", 0))
@@ -304,7 +298,7 @@ def fetch_transaction_info(tx_hash):
         if "out of gas" in error_message or "arithmetic overflow or underflow" in error_message or "division or modulo by zero" in error_message:
             return result
         
-        error_analysis = analyze_failed_transaction(from_address, to_address, block_number, tx_input, gas_limit, gas_price, value, tx_index, tx_hash)
+        error_analysis = analyze_failed_transaction(from_address, to_address, block_number, tx_input, gas_limit, gas_price, value, tx_index, tx_hash, debug=debug)
         result.update(error_analysis)
     else:
         result["status"] = True
@@ -314,6 +308,7 @@ def main():
     """Process a transaction hash passed as a command-line argument."""
     parser = argparse.ArgumentParser(description="Analyze an Ethereum transaction.")
     parser.add_argument("tx_hash", help="Ethereum transaction hash (66 characters, starting with '0x')")
+    parser.add_argument("--debug", action="store_true", help="Save raw API responses to disk for debugging")
     args = parser.parse_args()
 
     tx_hash = args.tx_hash.strip()
@@ -322,7 +317,7 @@ def main():
         print("Invalid transaction hash. It should start with '0x' and be 66 characters long.")
         sys.exit(1)
 
-    result = fetch_transaction_info(tx_hash)
+    result = fetch_transaction_info(tx_hash, debug=args.debug)
     print(json.dumps(result, indent=2))
 
 if __name__ == "__main__":
