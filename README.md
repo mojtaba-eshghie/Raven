@@ -38,31 +38,29 @@ cd Failysis
 pip install -r requirements.txt
 ```
 
+## Strucutre
+Failysis/
+├── analysis/                # Plotting of results with generated plots
+├── clustering/          # Scripts for invariant clustering after extraction
+├── dataset_creation/          # Code to create the datasets
+├── datasets/    # the datasets for clustering and results
+├── ethereum_failed_transactions/       # the extracted hashes from Dune
+├── finetuning/            # finetuning ReBERT
+├── requirements.txt     # Python dependencies
+
+
 ## Usage
+Please follow these steps to correctly use the pipeline:
 
-### Command-line Script
+1. Dataset Creation (optional): Use scripts in dataset_creation/ to process and prepare your initial contract data. For the thesis, the data exists already
 
-Analyze a failed transaction by providing its hash:
+2. Invariant Clustering: Run the scripts in clustering/ to group similar invariants based on semantics or structural features.
 
-```bash
-python analyze_transaction.py <transaction_hash>
-```
+3. Model Fine-Tuning (Optional): use to finetune the ReBERT model.
 
-### TODO: Python Module
+4. Visualization: Generate plots and figures using analysis/plotting.ipynb. The resulting PDFs will appear in analysis/visualization/.
 
-Import the analysis function into your Python scripts:
 
-```python
-from invariant_analyzer import analyze_failed_transaction
-
-result = analyze_failed_transaction('0xYourTransactionHash')
-print(result)
-```
-
-The function returns a dictionary with:
-- **failure_reason:** The root cause of the transaction failure.
-- **failure_invariant:** The specific revert/require/assert condition that triggered the failure.
-- **failure_message:** The accompanying message (if available), or fallback information if data is missing.
 
 ## Contact
 
