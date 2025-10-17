@@ -5,10 +5,20 @@ import argparse
 import time
 from ethereum_src import has_ethereum_src
 import re
+import os   
+from dotenv import load_dotenv
+load_dotenv()
+
+ACCOUNT_NAME = "MojtabaEshghie"
+PROJECT_NAME = "mojtabae/project"
 
 TENDERLY_PUBLIC_TX_URL = "https://api.tenderly.co/api/v1/public-contract/1/tx/"
-TENDERLY_SIMULATION_URL = "https://api.tenderly.co/api/v1/account/{ACCOUNT_NAME}/project/{PROJECT_NAME}/simulate"
-TENDERLY_API_KEY = ""
+# TENDERLY_SIMULATION_URL = "https://api.tenderly.co/api/v1/account/MojtabaEshghie/project/mojtabae/project/simulate"
+# TENDERLY_SIMULATION_URL = f"https://api.tenderly.co/api/v1/account/{ACCOUNT_NAME}/project/{PROJECT_NAME}/simulate"
+TENDERLY_SIMULATION_URL = f"https://api.tenderly.co/api/v1/account/MojtabaEshghie/project/project/simulate"
+
+TENDERLY_API_KEY = os.getenv("TENDERLY_API_KEY")
+print(f"Using the api key: {TENDERLY_API_KEY}")
 MAX_RETRIES = 30
 INITIAL_RETRY_DELAY = 2
 BACKOFF_MULTIPLIER = 2
@@ -245,6 +255,7 @@ def analyze_failed_transaction(from_address, to_address, block_number, tx_input,
 
 def fetch_transaction_info(tx_hash, debug=False):
     """Fetch transaction details from Tenderly's public API."""
+    print(f"Fetching transaction info for hash: {tx_hash}")
     headers = {
         'authority': 'api.tenderly.co',
         'accept': 'application/json, text/plain, */*',
@@ -255,7 +266,6 @@ def fetch_transaction_info(tx_hash, debug=False):
     if debug:
         with open("tenderly_overall.txt", "w") as file:
             json.dump(data, file, indent=4)
-
 
     result = {}
     block_number = int(data.get("block_number", 0))

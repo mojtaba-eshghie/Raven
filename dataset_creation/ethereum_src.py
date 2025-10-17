@@ -3,7 +3,7 @@ import time
 import pandas as pd
 from error_logging import error_logger, listener
 
-API_KEY = "MBK2HMREV9ASCIR97UTJBEDVCFQ8NTVZ9B"  # Replace with your actual API key
+API_KEY = "MBK2HMREV9ASCIR97UTJBEDVCFQ8NTVZ9B"
 base_url = "https://api.etherscan.io/api"
 
 def has_ethereum_src(address, max_retries=1):
