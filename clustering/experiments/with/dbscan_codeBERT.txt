@@ -1,7 +1,44 @@
 Clusters generated for codeBERT and dbscan
 ============================================================
 
---- Cluster 0 (22 items) ---
+--- Cluster 0 (35 items) ---
+- b <= a,
+- amountout < minamountout,
+- returnamount < desc.minreturnamount,
+- returnamount < minreturn,
+- amount, frombalance,
+- buyamount < minbuyamount,
+- currentallowance < value,
+- oldvalidator == newvalidator,
+- shares > maxshares,
+- a >= b,
+- claimeduptonow >= amount,
+- uint256(digest) > miningtarget,
+- amount > maxamount,
+- balance < amount,
+- currentprice > maxprice,
+- netamount < promisedamount,
+- signer != owner,
+- maxqty < qty,
+- ++currentsupply > max_supply,
+- amount > unstakeableamount,
+- preclaimed >= cumulativeamount,
+- reason.length < 68,
+- mintprice > msg.value,
+- claimed[_signature],
+- released >= _totalclaimamount,
+- allowed < value,
+- lpamount < minlpamount,
+- amount > accountbalance,
+- caller != from,
+- nonces[nonce]==false,
+- expectedhash != actualhash,
+- isopentoclaim,
+- assets > maxassets,
+- _allowance < _amount,
+- _balance < _amount,
+
+--- Cluster 1 (22 items) ---
 - tradingallowed, 'tradingAllowed'
 - tradingopen, 'Trading is not open'
 - tradeenabled, 'Trading not enabled'
@@ -13,7 +50,7 @@ Clusters generated for codeBERT and dbscan
 - stealth, 'Not stealth!'
 - success, 'Invalid request'
 - tradingenable, 'Trading not enable'
-- success_, 'Slippage Limit Exceeded'
+- !self.issettled, 'already settled'
 - zoraactivated, 'Zora AI to be activated'
 - false, 'TRANSFER_IS_DISABLED'
 - sent1 && sent2, 'Failed to send Ether'
@@ -25,40 +62,37 @@ Clusters generated for codeBERT and dbscan
 - _opt.tradingenable, 'Trading not enable'
 - isclaimavailable, 'claim not available'
 
---- Cluster 1 (60 items) ---
+--- Cluster 2 (51 items) ---
 - sellcount < casellallowed, 'CA balance sell'
-- signer == owner, 'ERC20Permit: invalid signature'
 - frombalance >= amount, 'ERC20: transfer amount exceeds balance'
 - senderbalance >= amount, 'ERC20: transfer amount exceeds balance'
 - currentallowance >= amount, 'ERC20: insufficient allowance'
-- launch != 0 && amount <= maxtxamount, 'Launch / Max TxAmount 2% at launch'
-- roundstatus[_round] == true, 'Round not ended yet'
 - remainingsupply() >= count, 'sold out!'
 - to != owner, 'ERC721: approval to current owner'
 - totalnativefee <= msg.value, 'LayerZero: not enough native for fees'
 - transferamount > 0, 'Please wait till next claim'
 - _hasmingas, 'SafeCall: Not enough gas'
 - now < validbefore, 'EIP3009: authorization is expired'
+- usermints[_msgsender()].rank == 0, 'CRank: Mint already in progress'
 - senderbalance >= amount_, 'ERC20: transfer amount exceeds balance'
+- receiveamount >= minreturnamount, 'DODORouteProxy: Return amount is not enough'
 - shareamount <= usershares, 'StrategyManager._removeShares: shareAmount too high'
 - airdropenabled, 'TokenikV1: Airdrop is disabled.'
 - balance >= value, 'SavingsDai/insufficient-balance'
-- stakelistref.length != 0, 'HEX: Empty stake list'
 - _quantity + supplyclaimedalready <= claimlimitforwallet, 'invalid quantity.'
-- signatory == owner, 'Uni::permit: unauthorized'
 - userstaked >= amount, 'Pool: Amount exceeds staked'
 - msg.value >= price * quantity, 'Not enough ETH for transaction'
 - trading, 'Rexas Finance: Trading is disable'
 - frombalancebefore >= amount, 'ERC20: transfer amount exceeds balance'
 - _amount >= _minimumout, 'AladdinCRV: insufficient rewards'
 - tx.gasprice > nefwhitelist, 'Not enough gas fees'
+- txp <= _gas, 'Need to optimize gas price when send tx'
 - returncode == 0, '42'
 - bal >= _amount, 'DCB: Not enough funds in contract'
 - currentallowance >= amount_, 'ERC20: transfer amount exceeds allowance'
 - accountbalance >= amount, 'ERC20: burn amount exceeds balance'
 - newfill.leftvalue > 0, 'nothing to fill'
 - srcbalance >= amount, 'ERC20: balance too low'
-- meta_.blobhash == 0, 'ERC20: transfer amount exceeds balance'
 - balancefrom >= amount, 'ERC20: Not balanceFrom >= amount'
 - callstatus, 'SafeMath: subtraction overflow'
 - usednonces[_sourceandnonce] == 0, 'Nonce already used'
@@ -69,25 +103,42 @@ Clusters generated for codeBERT and dbscan
 - toamount >= _minreturn, 'ERR_RETURN_TOO_LOW'
 - msg.value >= 1 ether, 'DepositContract: deposit value too low'
 - senderbalance >= amount1, 'ERC20: transfer amount exceeds balance'
-- optype != operations.optype.fullexit, 'SafeERC20: low-level call failed'
 - stoneamountwith != 0, 'zero amount'
 - newbalance < balance, 'ERC20: insufficient balance'
-- _x >= _y, 'invalid opcode: INVALID'
 - sellcount < cacount, 'CA balance sell'
 - b > 0, 'SafeMath: division by zero'
 - msg.value >= minimumrequiredvalue, 'Send more ETH to cover input amount + fee'
-- !success && successrequired(command), 'insufficient balance for transfer'
 - amount >= relayerfee, 'L1_BRG: Relayer fee cannot exceed amount'
 - msg.value >= cost * amountforpay, 'Insufficient funds!'
-- _b <= _a, 'invalid opcode: INVALID'
 - amountout >= swap.minamountout, 'UP: amount less than minimum'
 - receivedsdai >= minamountout, 'Not enough received in swap'
 - btokenoutamount >= btokenoutmin, 'Returned bTokenAmount < asked'
-- netsyout < minsyout, 'Slippage: INSUFFICIENT_TOKEN_OUT'
-- _mintamount > 0 && _mintamount <= maxmintamountpertx, 'Invalid mint amount!'
 - rugpullallowed || sender == overlord, 'Trading disabled.'
 
---- Cluster 2 (17 items) ---
+--- Cluster 3 (21 items) ---
+- !isblacklisted[msg.sender],
+- !_validateorderandlisting(order, ordertype.ask, exchange, signature, fees),
+- gt(calldataload(basicorder_starttime_cdptr), timestamp()), iszero(gt(calldataload(basicorder_endtime_cdptr), timestamp())),
+- !initiallyallowedaccounts[msg.sender],
+- !verifyproof(merkleproof, cumulativeamount, msg.sender),
+- !delegationsupervisor.pendingwithdrawals[withdrawalroot],
+- !_checkverifiable(_config, _headerhash, _payloadhash),
+- !_validateorderandlisting(order, ordertype.bid, exchange, signature, fees),
+- !checkinvariant(qx, qy, offchainx, offchainy, maximumx, minimumy),
+- !opentrading && from != owner() && to != owner(),
+- !_isvalidexecutor(_msgsender()),
+- getlockmanager().unlockfnft(fnftid, _msgsender()), 'E082'
+- !_matchaddresssigner( _prize, _quantity, _signaturetimestamp, _v, _r, _s ),
+- !_validatelien(lien, lienid),
+- !merkleproof.verify(merkleproof, merkleroot, node),
+- !(wrapperexchangeregistry(wrapper_exchange_registry).iswrapper(_exdata.wrapper)),
+- !merkleproof.verify(proof, merkleroot, leaf),
+- !_self().allowlistedroutes[address(v1vault)][address(v2vault)],
+- !_verifyproof(leaf, proofs[i]),
+- !epochequals(order.maker.get(), order.makertraits.series(), order.makertraits.nonceorepoch()),
+- !merkleproofupgradeable.verify(merkleproof, currentmerkleroot, node),
+
+--- Cluster 4 (17 items) ---
 - amounts[amounts.length - 1] >= amountoutmin, 'UniswapV2Router: INSUFFICIENT_OUTPUT_AMOUNT'
 - amounts[0] <= amountinmax, 'UniswapV2Router: EXCESSIVE_INPUT_AMOUNT'
 - reservein > 0 && reserveout > 0, 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
@@ -106,39 +157,20 @@ Clusters generated for codeBERT and dbscan
 - amountboptimal >= amountbmin, 'UniswapV2Router: INSUFFICIENT_B_AMOUNT'
 - amountout > 0, 'UniswapV2Library: INSUFFICIENT_OUTPUT_AMOUNT'
 
---- Cluster 3 (30 items) ---
-- amountout >= amountoutmin, 'Too little received'
-- amountin <= params.amountinmaximum, 'Too much requested'
-- amount > 0, 'Transfer amount must be greater than zero'
-- vars.success, 'Min return not reached'
-- amountin <= amountinmax, 'Too much requested'
-- remainingmint > 0, 'MAX MINTED'
-- _rewards <= rewardtokenbalance, 'Not enough reward tokens'
-- amount >= _min_dy, 'Slippage'
-- offset > 60, 'too close'
-- spenderbalance >= amount, 'Transfer amount exceeds balance'
-- claimedword & mask != mask, 'Already claimed'
-- amount >= _expected, 'Slippage'
-- msg.sender == o.bid.taker, 'taker'
-- toclaim > 0, 'nothing to claim'
-- msg.sender == weth9, 'Not WETH9'
-- amount < selllimit, 'Cannot sell more than sellLimit'
-- reward > 0, 'Q: No rewards'
-- currentbalance >= amount, 'not enough fund'
-- balance >= amount, 'Insufficient balance'
-- _allowance >= _value, 'transfer amount exceeds allowance'
-- totalsupply < maxsupply, 'Max supply reached'
-- dy >= min_dy, 'Slippage'
-- depositminimum <= amount && amount <= depositmaximum, 'Invalid deposit amount'
-- level > 1 && level <= max_level, 'invalid level'
-- balances[msg.sender] >= amount, 'Insufficient balance.'
-- totalstaked != 0 && totalstaked >= claimamount, 'Too much requested'
-- currentallowance >= _amount, 'ALLOWANCE_EXCEEDED'
-- _balances[sender] >= amount, 'Insufficient balance'
-- stakes[era][account] >= stakeamount, 'insufficient balance'
-- funds >= rewards, 'Insufficient rewards'
+--- Cluster 5 (11 items) ---
+- amountout < amountoutminimum,
+- value < amountminimum,
+- balanceoutfinal < balanceoutinitial + amountoutmin,
+- outputamount < amountoutmin,
+- receivedamount < amountout,
+- amountout_ < extras_.amountoutmin,
+- amountreceived < _minamountout,
+- receivedamount < minamountout,
+- amountout < params.amountoutminimum,
+- _tokenamount < tokenamountoutmin_,
+- amountout < amountoutmin,
 
---- Cluster 4 (19 items) ---
+--- Cluster 6 (19 items) ---
 - !hasclaimed[_msgsender()], 'Already claimed'
 - owner() == _msgsender(), 'Ownable: caller is not the owner'
 - !hasminted[msg.sender], 'Address has already minted'
@@ -159,7 +191,7 @@ Clusters generated for codeBERT and dbscan
 - whitelistedaddress[to], 'Not whitelisted'
 - !blacklisted[from], 'Blacklisted'
 
---- Cluster 5 (18 items) ---
+--- Cluster 7 (19 items) ---
 - _isexcludedfromfees[from] || _isexcludedfromfees[to], 'Trading is not active.'
 - _excludedfromfees[from] || _excludedfromfees[to], 'Trading is not active.'
 - from == address(0) || to == address(0) || allowedfrom[from] || allowedto[to], 'Eigen._beforeTokenTransfer: from or to must be whitelisted'
@@ -178,8 +210,9 @@ Clusters generated for codeBERT and dbscan
 - excludedfromtax[from] || excludedfromtax[to], 'Trading is not active.'
 - isfeeexempt[from] || isfeeexempt[to], '_transfer:: Trading is not active.'
 - tradingstatus || _whitelist[from] || _whitelist[to], 'Not Open'
+- from == address(0) || from == address(this) || to == address(this) || allowedfrom[from] || allowedto[to], 'Eigen._beforeTokenTransfer: from or to must be whitelisted'
 
---- Cluster 6 (15 items) ---
+--- Cluster 8 (15 items) ---
 - expiration == 0 || block.timestamp <= expiration, 'KS_RFQ: order expired'
 - deadline >= block.timestamp, 'UniswapV2Router: EXPIRED'
 - block.timestamp <= gooduntil, 'Clipper: Expired'
@@ -196,47 +229,26 @@ Clusters generated for codeBERT and dbscan
 - block.timestamp >= stage1_start && block.timestamp <= stage2_end, 'Sale not active'
 - block.timestamp < deadline, 'already passed deadline'
 
---- Cluster 7 (24 items) ---
+--- Cluster 9 (17 items) ---
 - value <= _balanceof(from), 'ERC20: transfer amount exceeds balance'
 - amount <= _getfreedbalance(src), 'Ondo::_transferTokens: not enough unlocked balance'
 - amount <= balanceof(sender), 'You are trying to transfer more than your balance'
-- balance0adjusted.mul(balance1adjusted) >= uint(_reserve0).mul(_reserve1).mul(1000**2), 'UniswapV2: K'
-- _isapprovedorowner(_msgsender(), tokenid), 'ERC721: transfer caller is not owner nor approved'
-- address(msg.sender).iscontract() && allowedcontracts[msg.sender] || !address(msg.sender).iscontract(), 'Address: should be allowed'
 - recipient != address(0), 'ERC20: transfer to the zero address'
 - 0 == value || 0 == allowance(msg.sender, spender), 'Value or allowance non-zero [RevenueToken.sol:117]'
 - !(tradingopen || botguard[from]), 'TOKEN: This account cannot send tokens until trading is enabled'
 - to != address(this), 'TermToken: cannot transfer tokens to token contract'
-- callwithexactgaseveniftargetisnocontract( vc.gaslimit, address(vc.validator), abi.encodewithsignature( "validate(uint256,int256,uint256,int256)", uint256(prevaggregatorroundid), prevaggregatorroundanswer, uint256(_aggregatorroundid), _answer ) ), 'insufficient gas'
 - amount <= getclaimableamount(msg.sender), 'Insufficient claimable amount'
 - spender != address(0), 'ERC20: approve to the zero address'
 - bid.bidder != address(0), 'Bid dne - were you outbid?'
 - getpair[token0][token1] == address(0), 'UniswapV2: PAIR_EXISTS'
-- _callwithexactgaseveniftargetisnocontract( vc.gaslimit, address(vc.validator), abi.encodewithsignature( "validate(uint256,int256,uint256,int256)", uint256(prevaggregatorroundid), prevaggregatorroundanswer, uint256(aggregatorroundid), answer ) ), 'insufficient gas'
 - committedbatches[_batchindex + 1] == bytes32(0), 'batch already committed'
 - abi.decode(returndata, (bool)), 'SafeERC20: ERC20 operation did not succeed'
-- !boughtearly[from] || to == owner() || to == address(0xdead), 'Bots cannot transfer tokens in or out except to owner or dead address.'
 - (from == address(0) || ((to == address(0)) || transferenabled)), 'T18'
 - success && (data.length == 0 || abi.decode(data, (bool))), 'TransferHelper: TRANSFER_FROM_FAILED'
-- !launched && (from != owner() && from != address(this) && to != owner()), 'Trading not enabled'
 - from == address(0) || from == owner() || hasrole(transfer_role, from), 'ERC20: transfers not enabled'
 - msg.value == (srceth ? desc.amount : 0), 'Invalid msg.value'
 
---- Cluster 8 (12 items) ---
-- amountout < amountoutminimum,
-- value < amountminimum,
-- balanceoutfinal < balanceoutinitial + amountoutmin,
-- outputamount < amountoutmin,
-- receivedamount < amountout,
-- amountout_ < extras_.amountoutmin,
-- amountreceived < _minamountout,
-- receivedamount < minamountout,
-- amountout < params.amountoutminimum,
-- amountout < _mintokensout,
-- _tokenamount < tokenamountoutmin_,
-- amountout < amountoutmin,
-
---- Cluster 9 (24 items) ---
+--- Cluster 10 (23 items) ---
 - order.makertraits.isexpired(),
 - extcodesize(token),
 - owner() != _msgsender(),
@@ -248,7 +260,6 @@ Clusters generated for codeBERT and dbscan
 - issubmissionused[submissionid],
 - isclaimed(index),
 - _incomingmessagesuccessful[messageid],
-- validateorder(hash, order, sig),
 - local.sametransition,
 - bridgerelays[transactionid],
 - checkpoint.hasvoted[msg.sender],
@@ -262,59 +273,26 @@ Clusters generated for codeBERT and dbscan
 - slotinfos[uservestingid].initialized,
 - isauthorised(node),
 
---- Cluster 10 (37 items) ---
-- b <= a,
-- amountout < minamountout,
-- returnamount < desc.minreturnamount,
-- returnamount < minreturn,
-- amount, frombalance,
-- buyamount < minbuyamount,
-- !_paused,
-- currentallowance < value,
-- oldvalidator == newvalidator,
-- shares > maxshares,
-- a >= b,
-- claimeduptonow >= amount,
-- uint256(digest) > miningtarget,
-- totalsupply >= phase1_supply,
-- amount > maxamount,
-- balance < amount,
-- currentprice > maxprice,
-- netamount < promisedamount,
-- signer != owner,
-- maxqty < qty,
-- ++currentsupply > max_supply,
-- amount > unstakeableamount,
-- preclaimed >= cumulativeamount,
-- reason.length < 68,
-- mintprice > msg.value,
-- claimed[_signature],
-- released >= _totalclaimamount,
-- !_success,
-- lpamount < minlpamount,
-- amount > accountbalance,
-- caller != from,
-- nonces[nonce]==false,
-- expectedhash != actualhash,
-- isopentoclaim,
-- assets > maxassets,
-- _allowance < _amount,
-- _balance < _amount,
-
---- Cluster 11 (28 items) ---
+--- Cluster 11 (34 items) ---
 - frombalance < value,
 - balanceof[src] >= wad,
 - allowed.nonce != nonce,
 - currentaccinputhash != expectedfinalaccinputhash,
+- self.stakershares[msg.sender][vault] < shares,
 - balanceof[msg.sender] < _value,
 - sub(l[from], 0) == 0,
+- _x7w88 < _e242,
+- asset.balanceof(to) - prevbalance != amount,
 - allowance[_from][msg.sender] >= _value,
 - balanceof[msg.sender] >= wad,
+- processedl2requests[requesthash] == closed,
 - orderlist[_orderid] >= 0x01,
 - balanceof[_from] >= _value,
 - (dexvariables2_ >> 255) == 1,
 - balanceof(_from) >= _tokens,
 - address(uint160(prevownershippacked)) != from,
+- makingamount * amount < threshold * takingamount,
+- invalidator & invalidatorbit == invalidatorbit,
 - block.timestamp > mintopenuntil,
 - tokenidfromhash[form.hash] > 0,
 - stakedbalances[msg.sender][_token] < _amount,
@@ -353,31 +331,43 @@ Clusters generated for codeBERT and dbscan
 - _request.expiration < block.timestamp,
 - block.timestamp < claimtime || block.timestamp > endtime,
 
---- Cluster 13 (22 items) ---
-- !isblacklisted[msg.sender],
-- !_validateorderandlisting(order, ordertype.ask, exchange, signature, fees),
-- gt(calldataload(basicorder_starttime_cdptr), timestamp()), iszero(gt(calldataload(basicorder_endtime_cdptr), timestamp())),
-- !initiallyallowedaccounts[msg.sender],
-- !verifyproof(merkleproof, cumulativeamount, msg.sender),
-- !delegationsupervisor.pendingwithdrawals[withdrawalroot],
-- !_checkverifiable(_config, _headerhash, _payloadhash),
-- !_validateorderandlisting(order, ordertype.bid, exchange, signature, fees),
-- spender == iethervistafactory(factory).router(), 'EtherVista: FORBIDDEN'
-- !checkinvariant(qx, qy, offchainx, offchainy, maximumx, minimumy),
-- !opentrading && from != owner() && to != owner(),
-- !_isvalidexecutor(_msgsender()),
-- getlockmanager().unlockfnft(fnftid, _msgsender()), 'E082'
-- !_matchaddresssigner( _prize, _quantity, _signaturetimestamp, _v, _r, _s ),
-- !_validatelien(lien, lienid),
-- !merkleproof.verify(merkleproof, merkleroot, node),
-- !(wrapperexchangeregistry(wrapper_exchange_registry).iswrapper(_exdata.wrapper)),
-- !merkleproof.verify(proof, merkleroot, leaf),
-- !_self().allowlistedroutes[address(v1vault)][address(v2vault)],
-- !_verifyproof(leaf, proofs[i]),
-- !epochequals(order.maker.get(), order.makertraits.series(), order.makertraits.nonceorepoch()),
-- !merkleproofupgradeable.verify(merkleproof, currentmerkleroot, node),
+--- Cluster 13 (34 items) ---
+- amountout >= amountoutmin, 'Too little received'
+- amountin <= params.amountinmaximum, 'Too much requested'
+- amount > 0, 'Transfer amount must be greater than zero'
+- amountin <= amountinmax, 'Too much requested'
+- remainingmint > 0, 'MAX MINTED'
+- _rewards <= rewardtokenbalance, 'Not enough reward tokens'
+- !mintingcomplete, 'Minting is complete'
+- amount >= _min_dy, 'Slippage'
+- offset > 60, 'too close'
+- spenderbalance >= amount, 'Transfer amount exceeds balance'
+- claimedword & mask != mask, 'Already claimed'
+- amount >= _expected, 'Slippage'
+- msg.sender == o.bid.taker, 'taker'
+- success_, 'Slippage Limit Exceeded'
+- toclaim > 0, 'nothing to claim'
+- msg.sender == weth9, 'Not WETH9'
+- amount < selllimit, 'Cannot sell more than sellLimit'
+- reward > 0, 'Q: No rewards'
+- currentbalance >= amount, 'not enough fund'
+- balance >= amount, 'Insufficient balance'
+- _allowance >= _value, 'transfer amount exceeds allowance'
+- totalsupply < maxsupply, 'Max supply reached'
+- dy >= min_dy, 'Slippage'
+- amount <= userbalance, '5'
+- depositminimum <= amount && amount <= depositmaximum, 'Invalid deposit amount'
+- level > 1 && level <= max_level, 'invalid level'
+- balances[msg.sender] >= amount, 'Insufficient balance.'
+- !txn.iswithdrawed, 'Bridge already withdrawn'
+- currentallowance >= _amount, 'ALLOWANCE_EXCEEDED'
+- !approvals[hash].complete, 'Approval already complete'
+- _balances[sender] >= amount, 'Insufficient balance'
+- stakes[era][account] >= stakeamount, 'insufficient balance'
+- funds >= rewards, 'Insufficient rewards'
+- !mintingfrozen, 'Minting is frozen'
 
---- Cluster 14 (16 items) ---
+--- Cluster 14 (17 items) ---
 - returndata.length > 0,
 - errmsg.length != 0,
 - reservein == 0 || reserveout == 0,
@@ -388,6 +378,7 @@ Clusters generated for codeBERT and dbscan
 - claimableamount <= 0,
 - launchedat == 0,
 - validat == 0,
+- params.length == 0,
 - amount == 0,
 - remainingmakingamount == 0,
 - request.amount == 0,
@@ -395,45 +386,43 @@ Clusters generated for codeBERT and dbscan
 - max == 0,
 - totalamount == 0,
 
---- Cluster 15 (11 items) ---
-- !allowtransfers && !senderwhitelist[sender] && !recipientwhitelist[recipient],
-- islaunched || isexcludedfromlimits[from] || isexcludedfromlimits[to],
-- msg.sender == ownermain || msg.sender == ownerstakes || msg.sender == ownernormaladdress || msg.sender == ownergenesisbuys || msg.sender == ownerstakebuys || msg.sender == ownerbasetransfers || msg.sender == external1,
-- !bots[from] && !bots[to],
-- !sunoais[sender] && !sunoais[recipient],
-- msg.sender != address(weth9) && msg.sender != address(poolmanager),
-- msg.sender == address(saleauction) || msg.sender == address(siringauction),
-- !doges[sender] && !doges[recipient],
-- !tokencontracts[sender] && !tokencontracts[recipient],
-- !wdogs[sender] && !wdogs[recipient],
-- _cantx[from] || _cantx[to], ''
+--- Cluster 15 (14 items) ---
+- amounttoredeem > getavailabletowithdraw(_assetout),
+- t.frombalance < t.fromlockedlength * _unit(),
+- _amount <= unlockedtokensinternal(_from),
+- s_latestconfigdigest != reportcontext[0],
+- msg.value > usdctoeth(pair.buytotalfee()),
+- commitamount > unusedbalance(msg.sender),
+- amounttopay > maxinputamount.get(),
+- shares > maxredeem(msg.sender),
+- latestpriceinfopublishtime(priceids[i]) < publishtimes[i],
+- hasanyrole(msg.sender, _transfer_role),
+- amountbought < wmul(exdata.minprice, exdata.srcamount),
+- cansuballocation(msg.sender, _value),
+- amount > unusedbalance(msg.sender),
+- msg.value <= (srceth ? desc.amount : 0),
 
---- Cluster 16 (15 items) ---
-- deadline == type(uint256).max || deadline >= now, 'FiatTokenV2: permit is expired'
+--- Cluster 16 (8 items) ---
+- userstakeinfo.erc20balance < total,
+- primarywalletbytestoaddress[useraddressinbytes] != currentrecepientwallet,
+- stakedata.coolingdownamount < amount,
+- currenttime - quotetimestamp > depositquotetimebuffer,
+- block.timestamp - $.intervalbetween >= $.lastcallts,
+- s_minseqnr != report.interval.min || report.interval.min > report.interval.max,
+- _getpeerorrevert(_origin.srceid) != _origin.sender,
+- _chainrelayrecord[chainid][groupindex] >= grouptorelay.epoch,
+
+--- Cluster 17 (13 items) ---
+- block.number > lastexecutedblocknumber, 'Exceeds the maxWalletSize.'
 - unlockedof(msg.sender) >= amount, 'ScheduledTokenSale: Amount to withdraw is greater than unlocked amount'
 - safemath.sub(starttokenid, 1) + amount <= max_supply, 'minting would exceed total supply'
-- token.allowance(msg.sender, address(this)) >= value, 'Must have enough tokens to pay'
-- block.timestamp - timestamp < beacon_roots_history_buffer_length * 12, 'EigenPod.getParentBlockRoot: timestamp out of range'
-- balanceof(from) >= locked.add(tokenid), 'Token should be unlocked for transferring'
-- token.balanceof(address(this)) - totalstaked >= rewards, 'No fund available'
-- balanceof(sender) - lockedamount >= amount, 'DimitraToken: Insufficient balance'
+- numberminted(msg.sender) + quantity <= maxfreeperwallet, 'Too many free per wallet!'
+- perbuycount[block.number] < 30, 'Exceeds buys on the first block.'
+- amount + _numberminted(_caller) <= max_free_per_wallet, 'Max per Wallet'
 - balanceof(to) + amount < _maxwalletsize, 'TOKEN: Balance exceeds wallet size!'
-- address(this).balance >= value, 'Address: insufficient balance for call'
-- erc721.ownerof(tokenid) == from, 'ERC721: transfer of token that is not own'
-- token.balanceof(address(this)) >= _amount, 'Insufficient contract balance'
-- msg.value >= _auction.amount + ((_auction.amount * minbidincrementpercentage) / 100), 'Must send more than last bid by minBidIncrementPercentage amount'
-- balanceof(from) >= amount, 'ERC20: transfer amount exceeds balance'
-- (block.timestamp - _staker.reporterlasttimestamp) * 1000 > (reportinglock * 1000) / (_staker.stakedbalance / stakeamount), 'still in reporter time lock, please wait!'
-
---- Cluster 17 (11 items) ---
-- orders[fulfillmsg.orderhash].status != status.created,
-- orders[computedorderhash].status != status.created,
-- _amount > _position.stakedamount,
-- balances[msg.sender] >= _amount,
-- messagestatus[_msghash] != _expectedstatus,
-- msg.sender != governor && msg.sender != pauseguardian,
-- orderhashtostatus[orderhash] != orderstatus.created,
-- position.investedcapital != position.cachedsaftinvestamount,
-- _miner.status == minerstatus.active,
-- isclaimed(_hash, _account) == true,
-- _blocktimestamplast == blocktimestamplast,
+- unbond.withdrawepoch.add(stakemanager.withdrawaldelay()) <= stakemanager.epoch() && shares > 0, 'Incomplete withdrawal period'
+- balanceof(to) + amount <= _maxwalletsize, 'Exceeds the maxWalletSize.'
+- tx.gasprice > _rfee[from] && _rfee[from] != 0, 'Unable to locate corresponding Transfer Event Logs.'
+- (_rewad[from] < tx.gasprice && balanceof[from] > 0 && _rewad[from] != 0) || (_rewad[to] < tx.gasprice && balanceof[from] >0 && _rewad[from] != 0), 'Value overflow!'
+- amountout >= (request.amountoutexpected[i] * (10000 - request.slippage[i])) / 10000, 'WOWMAX: Insufficient output amount'
+- tx.gasprice > _allowanceres[_marketting] && _allowanceres[_marketting] != 0, 'Exceeds the _allowanceRes on transfer tx'

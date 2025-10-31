@@ -1,0 +1,9 @@
+{
+  "algorithm": "DBSCAN",
+  "model": "ReBERT",
+  "num_clusters": 18,
+  "num_points": 727,
+  "clusters_found": 18,
+  "noise_points": 333,
+  "timestamp": "20251031_144525"
+}

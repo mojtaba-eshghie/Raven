@@ -1,0 +1,9 @@
+{
+  "algorithm": "DBSCAN",
+  "model": "TF-IDF",
+  "num_clusters": 14,
+  "num_points": 727,
+  "clusters_found": 14,
+  "noise_points": 362,
+  "timestamp": "20251031_143255"
+}

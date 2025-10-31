@@ -1,0 +1,9 @@
+{
+  "algorithm": "HDBSCAN",
+  "model": "codeBERT",
+  "num_clusters": 12,
+  "num_points": 727,
+  "clusters_found": 12,
+  "noise_points": 256,
+  "timestamp": "20251031_144409"
+}

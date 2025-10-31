@@ -1,0 +1,9 @@
+{
+  "algorithm": "K-Means",
+  "model": "SmartBert",
+  "num_clusters": 99,
+  "num_points": 727,
+  "clusters_found": 99,
+  "noise_points": 0,
+  "timestamp": "20251031_143411"
+}

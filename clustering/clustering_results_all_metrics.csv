@@ -63,3 +63,139 @@ embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,para
 ReBERT,cosine,0.6800000071525574,0.030397752416943435,99,100.0,KMeans,{'n_clusters': 99}
 ReBERT,cosine,0.9300000071525574,0.04282763596056213,17,51.86,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 15}"
 ReBERT,cosine,0.76,0.05571608528021554,23,85.97,HDBSCAN,{'min_cluster_size': 10}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+TF-IDF,cosine,0.55,0.06813809756401018,99,100.0,KMeans,{'n_clusters': 99}
+TF-IDF,cosine,0.82,0.15188953350298395,9,65.06,DBSCAN,"{'eps': np.float64(0.6157894736842106), 'min_samples': 19}"
+TF-IDF,cosine,0.74,0.09467367013783053,15,72.21,HDBSCAN,{'min_cluster_size': 10}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+codeBERT,cosine,0.53,0.04974397688349362,99,100.0,KMeans,{'n_clusters': 99}
+codeBERT,cosine,0.77,0.06410586643628095,18,53.65,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 11}"
+codeBERT,cosine,0.67,0.07321800625013397,12,64.79,HDBSCAN,{'min_cluster_size': 12}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+SmartBert,cosine,0.54,0.05420241905162633,99,100.0,KMeans,{'n_clusters': 99}
+SmartBert,cosine,0.87,0.06728991065480357,20,55.43,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 13}"
+SmartBert,cosine,0.85,0.07506992126808368,11,83.08,HDBSCAN,{'min_cluster_size': 11}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+ReBERT,cosine,0.64,0.03351126622777541,99,100.0,KMeans,{'n_clusters': 99}
+ReBERT,cosine,0.95,0.04537976849474166,18,54.2,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 15}"
+ReBERT,cosine,0.78,0.06738208143617583,21,86.8,HDBSCAN,{'min_cluster_size': 10}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+TF-IDF,cosine,0.53,0.03071914235678527,98,100.0,KMeans,{'n_clusters': 98}
+TF-IDF,cosine,0.87,0.053427060154251985,14,50.21,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 10}"
+TF-IDF,cosine,0.78,0.061049185975723355,11,82.53,HDBSCAN,{'min_cluster_size': 13}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+codeBERT,cosine,0.53,0.06114372076155014,99,100.0,KMeans,{'n_clusters': 99}
+codeBERT,cosine,0.79,0.0718814265372895,18,51.99,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 11}"
+codeBERT,cosine,0.21,0.11819935617166857,9,93.54,HDBSCAN,{'min_cluster_size': 10}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+SmartBert,cosine,0.54,0.07207248616320766,99,100.0,KMeans,{'n_clusters': 99}
+SmartBert,cosine,0.83,0.08331855540546478,19,54.33,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 12}"
+SmartBert,cosine,0.65,0.14291427966468379,13,68.23,HDBSCAN,{'min_cluster_size': 14}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+ReBERT,cosine,0.62,0.026501997812406558,99,100.0,KMeans,{'n_clusters': 99}
+ReBERT,cosine,0.93,0.03933961521220885,19,58.32,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 14}"
+ReBERT,cosine,0.76,0.055111158474322595,19,88.72,HDBSCAN,{'min_cluster_size': 11}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+TF-IDF,cosine,0.55,0.06813809756401018,99,100.0,KMeans,{'n_clusters': 99}
+TF-IDF,cosine,0.82,0.15188953350298395,9,65.06,DBSCAN,"{'eps': np.float64(0.6157894736842106), 'min_samples': 19}"
+TF-IDF,cosine,0.74,0.09467367013783053,15,72.21,HDBSCAN,{'min_cluster_size': 10}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+codeBERT,cosine,0.53,0.04974397688349362,99,100.0,KMeans,{'n_clusters': 99}
+codeBERT,cosine,0.77,0.06410586643628095,18,53.65,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 11}"
+codeBERT,cosine,0.67,0.07321800625013397,12,64.79,HDBSCAN,{'min_cluster_size': 12}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+SmartBert,cosine,0.54,0.05420241905162633,99,100.0,KMeans,{'n_clusters': 99}
+SmartBert,cosine,0.87,0.06728991065480357,20,55.43,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 13}"
+SmartBert,cosine,0.85,0.07506992126808368,11,83.08,HDBSCAN,{'min_cluster_size': 11}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+ReBERT,cosine,0.64,0.03351126622777541,99,100.0,KMeans,{'n_clusters': 99}
+ReBERT,cosine,0.95,0.04537976849474166,18,54.2,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 15}"
+ReBERT,cosine,0.78,0.06738208143617583,21,86.8,HDBSCAN,{'min_cluster_size': 10}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+TF-IDF,cosine,0.55,0.06813809756401018,99,100.0,KMeans,{'n_clusters': 99}
+TF-IDF,cosine,0.82,0.15188953350298395,9,65.06,DBSCAN,"{'eps': np.float64(0.6157894736842106), 'min_samples': 19}"
+TF-IDF,cosine,0.74,0.09467367013783053,15,72.21,HDBSCAN,{'min_cluster_size': 10}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+codeBERT,cosine,0.53,0.04974397688349362,99,100.0,KMeans,{'n_clusters': 99}
+codeBERT,cosine,0.77,0.06410586643628095,18,53.65,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 11}"
+codeBERT,cosine,0.67,0.07321800625013397,12,64.79,HDBSCAN,{'min_cluster_size': 12}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+SmartBert,cosine,0.54,0.05420241905162633,99,100.0,KMeans,{'n_clusters': 99}
+SmartBert,cosine,0.87,0.06728991065480357,20,55.43,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 13}"
+SmartBert,cosine,0.85,0.07506992126808368,11,83.08,HDBSCAN,{'min_cluster_size': 11}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+ReBERT,cosine,0.64,0.03351126622777541,99,100.0,KMeans,{'n_clusters': 99}
+ReBERT,cosine,0.95,0.04537976849474166,18,54.2,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 15}"
+ReBERT,cosine,0.78,0.06738208143617583,21,86.8,HDBSCAN,{'min_cluster_size': 10}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+TF-IDF,cosine,0.55,0.06813809756401018,99,100.0,KMeans,{'n_clusters': 99}
+TF-IDF,cosine,0.82,0.15188953350298395,9,65.06,DBSCAN,"{'eps': np.float64(0.6157894736842106), 'min_samples': 19}"
+TF-IDF,cosine,0.74,0.09467367013783053,15,72.21,HDBSCAN,{'min_cluster_size': 10}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+codeBERT,cosine,0.53,0.04974397688349362,99,100.0,KMeans,{'n_clusters': 99}
+codeBERT,cosine,0.77,0.06410586643628095,18,53.65,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 11}"
+codeBERT,cosine,0.67,0.07321800625013397,12,64.79,HDBSCAN,{'min_cluster_size': 12}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+SmartBert,cosine,0.54,0.05420241905162633,99,100.0,KMeans,{'n_clusters': 99}
+SmartBert,cosine,0.87,0.06728991065480357,20,55.43,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 13}"
+SmartBert,cosine,0.85,0.07506992126808368,11,83.08,HDBSCAN,{'min_cluster_size': 11}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+ReBERT,cosine,0.64,0.03351126622777541,99,100.0,KMeans,{'n_clusters': 99}
+ReBERT,cosine,0.95,0.04537976849474166,18,54.2,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 15}"
+ReBERT,cosine,0.78,0.06738208143617583,21,86.8,HDBSCAN,{'min_cluster_size': 10}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+TF-IDF,cosine,0.55,0.06813809756401018,99,100.0,KMeans,{'n_clusters': 99}
+TF-IDF,cosine,0.82,0.15188953350298395,9,65.06,DBSCAN,"{'eps': np.float64(0.6157894736842106), 'min_samples': 19}"
+TF-IDF,cosine,0.74,0.09467367013783053,15,72.21,HDBSCAN,{'min_cluster_size': 10}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+codeBERT,cosine,0.53,0.04974397688349362,99,100.0,KMeans,{'n_clusters': 99}
+codeBERT,cosine,0.77,0.06410586643628095,18,53.65,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 11}"
+codeBERT,cosine,0.67,0.07321800625013397,12,64.79,HDBSCAN,{'min_cluster_size': 12}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+SmartBert,cosine,0.54,0.05420241905162633,99,100.0,KMeans,{'n_clusters': 99}
+SmartBert,cosine,0.87,0.06728991065480357,20,55.43,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 13}"
+SmartBert,cosine,0.85,0.07506992126808368,11,83.08,HDBSCAN,{'min_cluster_size': 11}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+ReBERT,cosine,0.64,0.03351126622777541,99,100.0,KMeans,{'n_clusters': 99}
+ReBERT,cosine,0.95,0.04537976849474166,18,54.2,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 15}"
+ReBERT,cosine,0.78,0.06738208143617583,21,86.8,HDBSCAN,{'min_cluster_size': 10}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+TF-IDF,cosine,0.53,0.03071914235678527,98,100.0,KMeans,{'n_clusters': 98}
+TF-IDF,cosine,0.87,0.053427060154251985,14,50.21,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 10}"
+TF-IDF,cosine,0.78,0.061049185975723355,11,82.53,HDBSCAN,{'min_cluster_size': 13}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+codeBERT,cosine,0.53,0.06114372076155014,99,100.0,KMeans,{'n_clusters': 99}
+codeBERT,cosine,0.79,0.0718814265372895,18,51.99,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 11}"
+codeBERT,cosine,0.21,0.11819935617166857,9,93.54,HDBSCAN,{'min_cluster_size': 10}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+SmartBert,cosine,0.54,0.07207248616320766,99,100.0,KMeans,{'n_clusters': 99}
+SmartBert,cosine,0.83,0.08331855540546478,19,54.33,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 12}"
+SmartBert,cosine,0.65,0.14291427966468379,13,68.23,HDBSCAN,{'min_cluster_size': 14}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+ReBERT,cosine,0.62,0.026501997812406558,99,100.0,KMeans,{'n_clusters': 99}
+ReBERT,cosine,0.93,0.03933961521220885,19,58.32,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 14}"
+ReBERT,cosine,0.76,0.055111158474322595,19,88.72,HDBSCAN,{'min_cluster_size': 11}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+TF-IDF,cosine,0.55,0.06813809756401018,99,100.0,KMeans,{'n_clusters': 99}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+codeBERT,cosine,0.53,0.04974397688349362,99,100.0,KMeans,{'n_clusters': 99}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+SmartBert,cosine,0.54,0.05420241905162633,99,100.0,KMeans,{'n_clusters': 99}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+ReBERT,cosine,0.64,0.03351126622777541,99,100.0,KMeans,{'n_clusters': 99}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+TF-IDF,cosine,0.55,0.06813809756401018,99,100.0,KMeans,{'n_clusters': 99}
+TF-IDF,cosine,0.82,0.15188953350298395,9,65.06,DBSCAN,"{'eps': np.float64(0.6157894736842106), 'min_samples': 19}"
+TF-IDF,cosine,0.74,0.09467367013783053,15,72.21,HDBSCAN,{'min_cluster_size': 10}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+codeBERT,cosine,0.53,0.04974397688349362,99,100.0,KMeans,{'n_clusters': 99}
+codeBERT,cosine,0.77,0.06410586643628095,18,53.65,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 11}"
+codeBERT,cosine,0.67,0.07321800625013397,12,64.79,HDBSCAN,{'min_cluster_size': 12}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+SmartBert,cosine,0.54,0.05420241905162633,99,100.0,KMeans,{'n_clusters': 99}
+SmartBert,cosine,0.87,0.06728991065480357,20,55.43,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 13}"
+SmartBert,cosine,0.85,0.07506992126808368,11,83.08,HDBSCAN,{'min_cluster_size': 11}
+embedding_model,metric,silhouette,sdbw,num_clusters,pct_clustered,algorithm,params
+ReBERT,cosine,0.64,0.03351126622777541,99,100.0,KMeans,{'n_clusters': 99}
+ReBERT,cosine,0.95,0.04537976849474166,18,54.2,DBSCAN,"{'eps': np.float64(0.35789473684210527), 'min_samples': 15}"
+ReBERT,cosine,0.78,0.06738208143617583,21,86.8,HDBSCAN,{'min_cluster_size': 10}

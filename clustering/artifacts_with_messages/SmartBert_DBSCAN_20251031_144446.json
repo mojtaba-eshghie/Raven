@@ -1,0 +1,9 @@
+{
+  "algorithm": "DBSCAN",
+  "model": "SmartBert",
+  "num_clusters": 20,
+  "num_points": 727,
+  "clusters_found": 20,
+  "noise_points": 324,
+  "timestamp": "20251031_144446"
+}
