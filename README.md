@@ -1,4 +1,4 @@
-#   Failysis: Failure Analysis of Ethereum Transctions at a Large Scale 
+# Raven: Semantic Analysis of Revert-Inducing Invariants on Ethereum’s  
 
 This repository contains code and documentation for a tool that automates the extraction, clustering, and analysis of invariants in Solidity smart contracts. The goal is to map invariant patterns to transaction failures, providing insights into why transactions revert and how smart contracts can be made more reliable.
 
