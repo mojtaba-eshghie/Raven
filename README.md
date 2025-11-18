@@ -1,69 +1,78 @@
-# Raven: Semantic Analysis of Revert-Inducing Invariants on Ethereum’s  
+# Raven: Discovering Defensive Patterns in Ethereum via Semantic Clustering of Transaction Revert Invariants
 
-This repository contains code and documentation for a tool that automates the extraction, clustering, and analysis of invariants in Solidity smart contracts. The goal is to map invariant patterns to transaction failures, providing insights into why transactions revert and how smart contracts can be made more reliable.
+Raven treats **failed Ethereum transactions** as a *positive* signal of working on-chain defenses.
 
-## Project Overview
+It (1) aligns reverted executions to verified source, (2) extracts the exact guard predicates (`require`, `assert`, `if (...) revert/throw`) that caused the revert, (3) embeds them with a fine-tuned model (**RavenBERT**), and (4) clusters them by **semantic intent** (e.g., access control, slippage safeguards, replay prevention, allow/ban lists, etc.).
 
-Smart contracts manage decentralized applications and finances on blockchain networks. However, vulnerabilities—such as reentrancy attacks—have led to severe financial losses. This project leverages invariant analysis to:
-- Automatically extract invariants from a large dataset of Solidity smart contracts.
-- Cluster and classify these invariants based on their semantic purpose.
-- Analyze how different invariant patterns correlate with transaction reversions (e.g., due to failed `revert`, `require`, or `assert` statements).
+This repo contains all code and artifacts to:
 
-## Research Questions
+- collect and label **failed Ethereum transactions**,
+- extract **revert-inducing invariants**,
+- fine-tune **RavenBERT** via contrastive learning,
+- run a **grid search** over encoders + clustering algorithms,
+- reproduce the **figures and tables** in the paper.
 
-- **RQ1:** How can invariants be efficiently extracted and clustered from Solidity smart contracts at scale?
-- **RQ2:** What are the primary factors behind transaction reversion in Ethereum smart contracts? Specifically, which invariants or invariant categories are most associated with reverted transactions, and what are their underlying characteristics?
+---
 
-## Analysis Objectives
+## Paper, Model, and Dataset
 
-In addition to the main research questions, the project aims to address the following:
-- **Invariant Insights:** What information can be extracted from an analysis of invariants (e.g., gas usage implications)?
-- **Reversion Causes:** What are the most common causes of transaction reversions in Ethereum and other EVM-based blockchains?
-- **Revert-Inducing Conditions:** Can we identify the top revert-inducing invariants (e.g., a ranked list of conditions that lead to transaction reversions)?
-- **Failure Patterns:** What are the prevalent reasons for transaction reversion in the wild—be it due to `revert`/`require`/`assert` failures, gas consumption issues, or other factors?
-- **Effectiveness Ratio:** What is the ratio of effective invariants (those directly linked to transaction reversion events) to the total number of invariants used in contracts?
-- **Temporal Trends:** How does the percentage of transactions failing due to out-of-gas issues compare to other failure reasons over time?
-- **Contract-Level Analysis:** Which contracts are most prone to transaction reversions, both for out-of-gas issues and manual reversion triggers?
+- 📄 **Paper**: TBD 
+- 🧠 **Model – RavenBERT**  
+  BERT-family encoder fine-tuned contrastively on revert-inducing invariants from 100k failed transactions:  
+  <https://huggingface.co/MojtabaEshghie/RavenBERT>
+- 📊 **Dataset – raven-dataset**  
+  Sampled failed Ethereum transactions with extracted invariants and metadata:  
+  <https://huggingface.co/datasets/MojtabaEshghie/raven-dataset>
 
-## Installation
+Raven’s experiments (in this repo) use:
 
-To set up the project locally:
+- a **fine-tuning set** of 100k failed transactions (1,932 unique invariants), and  
+- an **evaluation set** of 20k failed transactions (727 unique invariants, June 2024 – March 2025).
+
+---
+
+## High-Level Research Questions
+
+Raven is built and evaluated around three questions:
+
+- **RQ1 – Intrinsic Quality.**  
+  Does Raven generate **compact, well-separated** invariant clusters (Silhouette, S\_Dbw)?
+
+- **RQ2 – Coverage vs. Quality.**  
+  What fraction of invariants are clustered (vs. noise), and how does this trade off against quality across different encoders and clustering algorithms?
+
+- **RQ3 – Semantic Meaningfulness.**  
+  Are the resulting clusters **meaningful and distinct** under expert review, and do they surface invariant categories **missing from prior catalogs**?
+
+---
+
+
+## Project Structure
 
 ```bash
-# Clone the repository
-git clone https://github.com/mojtaba-eshghie/Failysis/
-cd Failysis
-
-# Install dependencies
-pip install -r requirements.txt
+Raven/
+├── analysis/                    # Plotting and visualization of results
+│   ├── plotting.ipynb          
+│   └── visualization/          
+├── clustering/                  # Invariant clustering pipeline
+│   ├── clustering.ipynb        
+│   ├── experiments/            # Clustering results 
+│   ├── artifacts_*/            # Generated clustering artifacts
+│   └── ravenbert/              
+├── dataset_creation/            # Scripts for dataset extraction
+│   ├── analyze_transaction.py  # Transaction-level analysis
+│   └── ethereum_src.py         # Ethereum data extraction utilities
+├── datasets/                    # Training and evaluation datasets
+│   ├── finetuning_dataset.parquet    # 100k transactions for fine-tuning
+│   ├── test_dataset.parquet          # 20k transactions for evaluation
+│   └── cluster_*.csv                 # Clustering results and mappings
+├── finetuning/                  # RavenBERT fine-tuning scripts
+│   ├── train_ravenbert_contrastive.py
+│   └── checkpoints/            # Model checkpoints
+└── ethereum_failed_transactions/ # Raw failed transaction hashes
 ```
 
-## Strucutre
-Failysis/
-├── analysis/                # Plotting of results with generated plots
-├── clustering/          # Scripts for invariant clustering after extraction
-├── dataset_creation/          # Code to create the datasets
-├── datasets/    # the datasets for clustering and results
-├── ethereum_failed_transactions/       # the extracted hashes from Dune
-├── finetuning/            # finetuning ReBERT
-├── requirements.txt     # Python dependencies
-
-
-## Usage
-Please follow these steps to correctly use the pipeline:
-
-1. Dataset Creation (optional): Use scripts in dataset_creation/ to process and prepare your initial contract data. For the thesis, the data exists already
-
-2. Invariant Clustering: Run the scripts in clustering/ to group similar invariants based on semantics or structural features.
-
-3. Model Fine-Tuning (Optional): use to finetune the ReBERT model.
-
-4. Visualization: Generate plots and figures using analysis/plotting.ipynb. The resulting PDFs will appear in analysis/visualization/.
-
-
-
-## Contact
-
-For further questions or collaboration, please reach out to:
-- **Student:** Melissa Rebecca Mazura (mazura@kth.se)
-- **Supervisor:** Mojtaba Eshghie (eshghie@kth.se)
+## Cite Raven
+```bibtex
+TBD
+```
