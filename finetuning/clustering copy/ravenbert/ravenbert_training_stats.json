@@ -1,0 +1,13 @@
+{
+  "base_model": "web3se/SmartBERT-v2",
+  "n_texts": 1647,
+  "pairs_total": 16470,
+  "positives": 8235,
+  "negatives": 8235,
+  "tau_pos": 0.8,
+  "tau_neg": 0.2,
+  "top_k": 10,
+  "max_pos_per_item": 5,
+  "epochs": 1,
+  "batch": 16
+}

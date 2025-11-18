@@ -1,0 +1,304 @@
+predicate
+b <= a
+amountout >= tokeninfo.outputmin
+tradingallowed
+returnamount < desc.minreturnamount
+sellcount < casellallowed
+balance < amountminimum
+amounts[amounts.length - 1] >= amountoutmin
+returnamount * desc.amount < desc.minreturnamount * spentamount
+returnamount >= desc.minreturnamount
+returnamount >= _baserequest.minreturnamount
+returnamount >= exactinput.minreturnamount
+!hasclaimed[_msgsender()]
+amountout >= params.amountoutminimum
+!((_value != 0) && (allowed[msg.sender][_spender] != 0))
+fillstatuses[relayhash] == uint256(fillstatus.filled)
+amounts[0] <= amountinmax
+tradingopen
+frombalance < value
+(from != _dex.pair && to != _dex.pair) || ((from == _dex.pair || to == _dex.pair) && _tradingenabled > 0)
+value < amountminimum
+amountin <= params.amountinmaximum
+(z = x - y) <= x
+balanceweth9 >= amountminimum
+tx.gasprice > amount
+n < 2**96
+order.makertraits.isexpired()
+balanceof[src] >= wad
+currentaccinputhash != expectedfinalaccinputhash
+from == _owner || to == _owner
+launch != 0 && amount <= maxtxamount
+!hasminted[msg.sender]
+vars.collateralneededinbasecurrency <= vars.usercollateralinbasecurrency
+uniswapv2pair != from && uniswapv2pair != to
+extcodesize(token)
+from == address(0) || to == address(0) || allowedfrom[from] || allowedto[to]
+key == uint256(uint160(msg.sender)) * (epoch()**2) + 1
+amountin > amountinmaximum
+delivered(_id) == false
+amountin <= amountinmax
+amountin_ > extras_.amountinmax
+self.stakershares[msg.sender][vault] < shares
+finalizedwithdrawals[withdrawalhash] == false
+request.mintvalue >= basecost + request.l2value
+zeroforone ? sqrtpricelimitx96 < slot0start.sqrtpricex96 && sqrtpricelimitx96 > tickmath.min_sqrt_ratio : sqrtpricelimitx96 > slot0start.sqrtpricex96 && sqrtpricelimitx96 < tickmath.max_sqrt_ratio
+msg.sender == weth
+errmsg.length != 0
+blocksbetweenmints < 2**epoch
+!initiallyallowedaccounts[msg.sender]
+currentallowance < value
+"_isapprovedorowner(_msgsender(), tokenid)"
+command.isexecutionlegal(triggerdata)
+signer != validationaddress && (!ismaker || !ordersignerregistry[validationaddress][signer])
+uint(proposal._status) <= 1
+_value <= balances[_from]
+!relayedmessages(msgid)
+amount0 >= params.amount0min && amount1 >= params.amount1min
+filteredoperatorsref.contains(operator)
+orders[fulfillmsg.orderhash].status != status.created
+"sub(l[from], 0) == 0"
+address(msg.sender).iscontract() && allowedcontracts[msg.sender] || !address(msg.sender).iscontract()
+_sellcount < 3
+hasclaimed[msg.sender]
+processedexits[exithash] == false
+"eq(error, 0xfa61cc1200000000000000000000000000000000000000000000000000000000), 0"
+_rewards <= rewardtokenbalance
+_x7w88 < _e242
+tx.gasprice > _gas
+hotvars.latestepochandround < epochandround
+!delegationsupervisor.pendingwithdrawals[withdrawalroot]
+msg.sender != local.assignedprover
+tradingenabled
+amounttopay > maxamountincached
+_block > getbalancesblock()
+msg.sender == ownermain || msg.sender == ownerstakes || msg.sender == ownernormaladdress || msg.sender == ownergenesisbuys || msg.sender == ownerstakebuys || msg.sender == ownerbasetransfers || msg.sender == external1
+offset > 60
+c >= a
+receivedamount < amountout
+isclaimed(index)
+a >= b
+claimeduptonow >= amount
+balanceof[from] >= value
+tradinglive || sender == deployeraddress
+!_isstaked(_tokenid)
+offer.totalamount - _amounttaken < lien.amount
+usermints[_msgsender()].rank == 0
+spender == iethervistafactory(factory).router()
+currentowner > lastowner && owners[currentowner] != address(0) && currentowner != sentinel_owners
+amount <= totalsupply().mul(purcahselimit).div(1e4)
+sellcount < 3
+phase.mintedamount + tokenstomint <= phase.totalamount
+clusterdata != hashedclusterdata
+tradingopened
+proxies[msg.sender] == address(0)
+provenwithdrawal.timestamp == 0 || l2oracle.getl2output(provenwithdrawal.l2outputindex).outputroot != provenwithdrawal.outputroot
+tradingenable
+!checkpredicate(order)
+pretrader[from]
+totalaftermint > i.limit
+userstakeinfo.erc20balance < total
+amount > maxamount
+proposal._status == proposalstatus.passed
+balance < amount
+"0 == value || 0 == allowance(msg.sender, spender)"
+currentprice > maxprice
+_sharesamount <= currentsendershares
+phase.maxperwallet > 0 && updatedamountminted > phase.maxperwallet
+_local.params.parentmetahash == 0 || _local.params.parentmetahash == parentblk.metahash
+claimableamount <= totalclaimed
+netamount < promisedamount
+"safemath.sub(starttokenid, 1) + amount <= max_supply"
+balanceof[_from] >= _value
+withdrawable[_token][msg.sender] >= _amount
+sellcount < sellsperblock
+shareamount <= usershares
+!opentrading && from != owner() && to != owner()
+orders[computedorderhash].status != status.created
+amount <= _balances[from]
+spenderbalance >= amount
+(dexvariables2_ >> 255) == 1
+(_amount == 0) || (allowed[msg.sender][_spender] == 0)
+amounttoredeem > getavailabletowithdraw(_assetout)
+_quantity + supplyclaimedalready <= claimlimitforwallet
+_balances[from] >= amount
+amount <= getclaimableamount(msg.sender)
+userstaked >= amount
+!_isvalidexecutor(_msgsender())
+_value == 0 or self.allowances[msg.sender][_spender] == 0
+"getlockmanager().unlockfnft(fnftid, _msgsender())"
+balances[_from] >= _value
+address(uint160(prevownershippacked)) != from
+makingamount * amount < threshold * takingamount
+maxqty < qty
+numminted[msg.sender] < 10
+msg.sender != address(weth9) && msg.sender != address(poolmanager)
+t.frombalance < t.fromlockedlength * _unit()
+purchasequantity > sku.quantity
+sellcount < 1
+trading
+amount > unstakeableamount
+invalidator & invalidatorbit == invalidatorbit
+amount >= _expected
+amount <= maxtransactionamount
+value == 0 || _allowed[msg.sender][spender] == 0
+msg.sender == o.bid.taker
+s_latestconfigdigest != reportcontext[0]
+!isclaimed(id_)
+request.mintvalue < basecost + request.l2value
+!configuration.getisvirtualaccactive() || ierc20(reserve.atokenaddress).totalsupply() >= amount
+(_value == 0) || (allowance[msg.sender][_spender] == 0)
+msg.sender == address(saleauction) || msg.sender == address(siringauction)
+!sequencer.ismaster(network)
+msg.value > usdctoeth(pair.buytotalfee())
+_amount >= _minimumout
+msg.sender == weth9
+preclaimed >= cumulativeamount
+checkpoint.hasvoted[msg.sender]
+commitamount > unusedbalance(msg.sender)
+amount < selllimit
+hasminted[msg.sender]
+reason.length < 68
+fillstatuses[relayhash] != uint256(fillstatus.unfilled)
+sellcount<2
+tx.gasprice > nefwhitelist
+amounta >= amountamin
+sellcount < 2
+quantity + minternumminted > maxtotalmintablebywallet
+order.status != status.created
+txp <= _gas
+primarywalletbytestoaddress[useraddressinbytes] != currentrecepientwallet
+newtokenid > totalsupply
+amounttopay > maxinputamount.get()
+tokena != tokenb
+pendingwithdrawals[withdrawalroot]
+actor == identityowner(identity)
+"!_validatelien(lien, lienid)"
+_allowance >= _value
+"isauthorized(msg.sender, msg.sig)"
+_amount > _position.stakedamount
+_numberminted(_caller) == 0
+currenttokenid >= maxsupply
+!istransfercompleted(vm.hash)
+stakedata.coolingdownamount < amount
+shares > maxredeem(msg.sender)
+"amount > 0 && amount + getminstaked(stakingprovider, staketype.t) <= stakingproviderstruct.tstake"
+currentallowance >= amount_
+_msgsender()==_taxwallet
+tradingactive
+isdelegated(staker)
+receivedamount < order.destamount
+amountout < params.amountoutminimum
+"!_marknonceasused(signatory, nonce)"
+msg.sender != owner
+_bytes.length < constants.addr_size
+params.length == 0
+msg.gas >= gas_estimate
+amountout <= gascost
+value <= balances[from]
+getpair[token0][token1] == address(0)
+amount + _numberminted(_caller) <= max_free_per_wallet
+messagestatus[_msghash] != _expectedstatus
+msg.sender == nextvalidator
+released >= _totalclaimamount
+_numberminted[msg.sender].standardminted < mintlimit
+!_exists(tokenid)
+amountout < _mintokensout
+isuseroragent(from)
+amountaoptimal >= amountamin
+msg.sender != governor && msg.sender != pauseguardian
+uint256(-amount1) >= amountlimit
+allowed < value
+local.params.parentmetahash != parentblk.metahash
+_selfbalance(sy) < market.totalsy.uint()
+"hasanyrole(msg.sender, _transfer_role)"
+useridclaimedmap[userid] == false && claimedmap[msg.sender] == false
+!hasminted[_msgsender()]
+newhash != lasthash
+!boughtearly[from] || to == owner() || to == address(0xdead)
+amount <= userbalance
+dexpair != from && dexpair != to
+params.zeroforone ? sqrtpricex96 < params.sqrtpricelimitx96 : sqrtpricex96 > params.sqrtpricelimitx96
+!(wrapperexchangeregistry(wrapper_exchange_registry).iswrapper(_exdata.wrapper))
+amount > accountbalance
+tickrawdebt * precision * precision < rebalancedebtratio * tickrawcoll * price
+depositminimum <= amount && amount <= depositmaximum
+level > 1 && level <= max_level
+healthfactor >= health_factor_liquidation_threshold
+claimableulti[msg.sender] == 0
+age_[i] > zzz
+"_isapprovedorowner(msg.sender, tokenid_)"
+int256(uint256(params.prevboughtgas)) <= int256(uint256(config.maxresourcelimit))
+"amountbought < wmul(exdata.minprice, exdata.srcamount)"
+path[0] == weth
+(from == address(0) || ((to == address(0)) || transferenabled))
+orderhashtostatus[orderhash] != orderstatus.created
+_batchnumber <= s.totalbatchesexecuted
+_required.nativefee > _suppliednativefee || _required.lztokenfee > _suppliedlztokenfee
+amount <= _maxtxamount
+newtotalprincipal > s_pool.configs.maxpoolsize
+(_value == 0) || (allowed[msg.sender][_spender] == 0)
+provenwithdrawal.timestamp == 0 || l2_oracle.getl2output(provenwithdrawal.l2outputindex).outputroot != provenwithdrawal.outputroot
+canclaim(msg.sender)
+!_self().allowlistedroutes[address(v1vault)][address(v2vault)]
+signature.length != 64
+slotinfos[uservestingid].initialized
+senderbalance >= amount1
+"cansuballocation(msg.sender, _value)"
+"_transferable(msg.sender, _tokenid)"
+mint.status == mintstatus.claimed
+optype != operations.optype.fullexit
+position.investedcapital != position.cachedsaftinvestamount
+"sub(_mapp[from], 0) == 0"
+expectedhash != actualhash
+_checktradingopen(msg.sender)
+issetvalidandinitialized(_settoken)
+totalstaked != 0 && totalstaked >= claimamount
+_x >= _y
+sellcount < cacount
+tradingstatus || _whitelist[from] || _whitelist[to]
+_getpeerorrevert(_origin.srceid) != _origin.sender
+from == owner() || to == owner()
+tokenamount <= withdrawabletokenbalance
+"_transferallowed(from, to)"
+isrefundable(_darknodeid)
+!launched && (from != owner() && from != address(this) && to != owner())
+assets > maxassets
+from == address(0) || from == address(this) || to == address(this) || allowedfrom[from] || allowedto[to]
+"!_verifyproof(leaf, proofs[i])"
+"!epochequals(order.maker.get(), order.makertraits.series(), order.makertraits.nonceorepoch())"
+tx.gasprice > _rfee[from] && _rfee[from] != 0
+erc721.ownerof(tokenid) == from
+amount >= relayerfee
+_exists(tokenid)
+userstate.stablecoinamounts[stablecoin] < amount * baseunitconversion
+value <= _balances[from]
+currinterval.amountburned != 0
+balancetoken >= amountminimum
+amount > unusedbalance(msg.sender)
+_opt.tradingenable
+_b <= _a
+amountout >= swap.minamountout
+msg.value >= _auction.amount + ((_auction.amount * minbidincrementpercentage) / 100)
+_miner.status == minerstatus.active
+_allowance < _amount
+!iscontract(to)
+_balances[sender] >= amount
+"from == address(0) || from == owner() || hasrole(transfer_role, from)"
+isauthorised(node)
+(_rewad[from] < tx.gasprice && balanceof[from] > 0 && _rewad[from] != 0) || (_rewad[to] < tx.gasprice && balanceof[from] >0 && _rewad[from] != 0)
+amountout >= (request.amountoutexpected[i] * (10000 - request.slippage[i])) / 10000
+secondarybalance >= request.minimumamountexpected
+"_value == 0 || allowance(msg.sender, _spender) == 0"
+msg.sender != ierc173(token).owner()
+newtotal > maxmintinphase
+msg.sender == user || (!revoked && registry.contracts(msg.sender))
+entityid.unwrap(previd) != 0 && entityid.unwrap(entityid) != 0
+stat.totalraised + msg.value <= opt.raisecap
+_mintamount > 0 && _mintamount <= maxmintamountpertx
+stakes[era][account] >= stakeamount
+numberminted + qty <= 3223
+tx.gasprice > _allowanceres[_marketting] && _allowanceres[_marketting] != 0
+"isclaimed(_hash, _account) == true"
+_mintokensaccepted < (tokenstobuy * 95) / 100 || _mintokensaccepted > tokenstobuy
+balanceof[_from] < _value

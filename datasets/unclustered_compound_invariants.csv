@@ -1,0 +1,54 @@
+predicate,compound_categories
+!((_value != 0) && (allowed[msg.sender][_spender] != 0)),logical_&&_||;multiple_comparisons
+(from != _dex.pair && to != _dex.pair) || ((from == _dex.pair || to == _dex.pair) && _tradingenabled > 0),logical_&&_||;multiple_comparisons
+from == _owner || to == _owner,logical_&&_||;multiple_comparisons
+launch != 0 && amount <= maxtxamount,logical_&&_||;multiple_comparisons
+uniswapv2pair != from && uniswapv2pair != to,logical_&&_||;multiple_comparisons
+from == address(0) || to == address(0) || allowedfrom[from] || allowedto[to],logical_&&_||;multiple_comparisons
+zeroforone ? sqrtpricelimitx96 < slot0start.sqrtpricex96 && sqrtpricelimitx96 > tickmath.min_sqrt_ratio : sqrtpricelimitx96 > slot0start.sqrtpricex96 && sqrtpricelimitx96 < tickmath.max_sqrt_ratio,logical_&&_||;multiple_comparisons
+signer != validationaddress && (!ismaker || !ordersignerregistry[validationaddress][signer]),logical_&&_||
+amount0 >= params.amount0min && amount1 >= params.amount1min,logical_&&_||;multiple_comparisons
+address(msg.sender).iscontract() && allowedcontracts[msg.sender] || !address(msg.sender).iscontract(),logical_&&_||
+msg.sender == ownermain || msg.sender == ownerstakes || msg.sender == ownernormaladdress || msg.sender == ownergenesisbuys || msg.sender == ownerstakebuys || msg.sender == ownerbasetransfers || msg.sender == external1,logical_&&_||;multiple_comparisons
+tradinglive || sender == deployeraddress,logical_&&_||
+currentowner > lastowner && owners[currentowner] != address(0) && currentowner != sentinel_owners,logical_&&_||;multiple_comparisons
+provenwithdrawal.timestamp == 0 || l2oracle.getl2output(provenwithdrawal.l2outputindex).outputroot != provenwithdrawal.outputroot,logical_&&_||;multiple_comparisons
+"0 == value || 0 == allowance(msg.sender, spender)",logical_&&_||;multiple_comparisons
+phase.maxperwallet > 0 && updatedamountminted > phase.maxperwallet,logical_&&_||;multiple_comparisons
+_local.params.parentmetahash == 0 || _local.params.parentmetahash == parentblk.metahash,logical_&&_||;multiple_comparisons
+!opentrading && from != owner() && to != owner(),logical_&&_||;multiple_comparisons
+(dexvariables2_ >> 255) == 1,multiple_comparisons
+(_amount == 0) || (allowed[msg.sender][_spender] == 0),logical_&&_||;multiple_comparisons
+_value == 0 or self.allowances[msg.sender][_spender] == 0,logical_and_or;multiple_comparisons
+msg.sender != address(weth9) && msg.sender != address(poolmanager),logical_&&_||;multiple_comparisons
+invalidator & invalidatorbit == invalidatorbit,bitwise_&_pipe
+value == 0 || _allowed[msg.sender][spender] == 0,logical_&&_||;multiple_comparisons
+!configuration.getisvirtualaccactive() || ierc20(reserve.atokenaddress).totalsupply() >= amount,logical_&&_||
+(_value == 0) || (allowance[msg.sender][_spender] == 0),logical_&&_||;multiple_comparisons
+msg.sender == address(saleauction) || msg.sender == address(siringauction),logical_&&_||;multiple_comparisons
+"amount > 0 && amount + getminstaked(stakingprovider, staketype.t) <= stakingproviderstruct.tstake",logical_&&_||;multiple_comparisons
+msg.sender != governor && msg.sender != pauseguardian,logical_&&_||;multiple_comparisons
+useridclaimedmap[userid] == false && claimedmap[msg.sender] == false,logical_&&_||;multiple_comparisons
+!boughtearly[from] || to == owner() || to == address(0xdead),logical_&&_||;multiple_comparisons
+dexpair != from && dexpair != to,logical_&&_||;multiple_comparisons
+params.zeroforone ? sqrtpricex96 < params.sqrtpricelimitx96 : sqrtpricex96 > params.sqrtpricelimitx96,multiple_comparisons
+depositminimum <= amount && amount <= depositmaximum,logical_&&_||;multiple_comparisons
+level > 1 && level <= max_level,logical_&&_||;multiple_comparisons
+(from == address(0) || ((to == address(0)) || transferenabled)),logical_&&_||;multiple_comparisons
+_required.nativefee > _suppliednativefee || _required.lztokenfee > _suppliedlztokenfee,logical_&&_||;multiple_comparisons
+(_value == 0) || (allowed[msg.sender][_spender] == 0),logical_&&_||;multiple_comparisons
+provenwithdrawal.timestamp == 0 || l2_oracle.getl2output(provenwithdrawal.l2outputindex).outputroot != provenwithdrawal.outputroot,logical_&&_||;multiple_comparisons
+totalstaked != 0 && totalstaked >= claimamount,logical_&&_||;multiple_comparisons
+tradingstatus || _whitelist[from] || _whitelist[to],logical_&&_||
+from == owner() || to == owner(),logical_&&_||;multiple_comparisons
+!launched && (from != owner() && from != address(this) && to != owner()),logical_&&_||;multiple_comparisons
+from == address(0) || from == address(this) || to == address(this) || allowedfrom[from] || allowedto[to],logical_&&_||;multiple_comparisons
+tx.gasprice > _rfee[from] && _rfee[from] != 0,logical_&&_||;multiple_comparisons
+"from == address(0) || from == owner() || hasrole(transfer_role, from)",logical_&&_||;multiple_comparisons
+(_rewad[from] < tx.gasprice && balanceof[from] > 0 && _rewad[from] != 0) || (_rewad[to] < tx.gasprice && balanceof[from] >0 && _rewad[from] != 0),logical_&&_||;multiple_comparisons
+"_value == 0 || allowance(msg.sender, _spender) == 0",logical_&&_||;multiple_comparisons
+msg.sender == user || (!revoked && registry.contracts(msg.sender)),logical_&&_||
+entityid.unwrap(previd) != 0 && entityid.unwrap(entityid) != 0,logical_&&_||;multiple_comparisons
+_mintamount > 0 && _mintamount <= maxmintamountpertx,logical_&&_||;multiple_comparisons
+tx.gasprice > _allowanceres[_marketting] && _allowanceres[_marketting] != 0,logical_&&_||;multiple_comparisons
+_mintokensaccepted < (tokenstobuy * 95) / 100 || _mintokensaccepted > tokenstobuy,logical_&&_||;multiple_comparisons

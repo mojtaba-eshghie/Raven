@@ -1,0 +1,425 @@
+cluster_id,invariant,predicate,tx_fail_count
+0,ierc20(path[path.length - 1]).balanceof(to).sub(balancebefore) >= amountoutmin,ierc20(path[path.length - 1]).balanceof(to).sub(balancebefore) >= amountoutmin,259
+0,"ierc20(tokenin).allowance(msg.sender, address(smartvault)) >= amountin","ierc20(tokenin).allowance(msg.sender, address(smartvault)) >= amountin",10
+0,value <= _balanceof(from),value <= _balanceof(from),148
+0,amount <= _getfreedbalance(src),amount <= _getfreedbalance(src),10
+0,amount <= balanceof(sender),amount <= balanceof(sender),16
+0,balance0adjusted.mul(balance1adjusted) >= uint(_reserve0).mul(_reserve1).mul(1000**2),balance0adjusted.mul(balance1adjusted) >= uint(_reserve0).mul(_reserve1).mul(1000**2),22
+0,balanceof(from) >= lockedamount(from) + amount,balanceof(from) >= lockedamount(from) + amount,3
+0,asset.balanceof(to) - prevbalance != amount,asset.balanceof(to) - prevbalance != amount,1
+0,balance0before.add(uint256(amount0)) <= balance0(),balance0before.add(uint256(amount0)) <= balance0(),4
+0,basereserve <= uint112(-1) && quotereserve <= uint112(-1),basereserve <= uint112(-1) && quotereserve <= uint112(-1),5
+0,unlockedof(msg.sender) >= amount,unlockedof(msg.sender) >= amount,1
+0,amount > address(this).balance,amount > address(this).balance,0
+0,balanceof(_from) >= _tokens,balanceof(_from) >= _tokens,1
+0,"token.allowance(msg.sender, address(this)) >= value","token.allowance(msg.sender, address(this)) >= value",2
+0,_amount <= unlockedtokensinternal(_from),_amount <= unlockedtokensinternal(_from),1
+0,super.balanceof(to) + amount <= maxwallet,super.balanceof(to) + amount <= maxwallet,1
+0,termrepotoken.balanceof(redeemer) == 0,termrepotoken.balanceof(redeemer) == 0,0
+0,balanceof(from) >= locked.add(tokenid),balanceof(from) >= locked.add(tokenid),1
+0,token.balanceof(address(this)) - totalstaked >= rewards,token.balanceof(address(this)) - totalstaked >= rewards,2
+0,numberminted(msg.sender) + quantity <= maxfreeperwallet,numberminted(msg.sender) + quantity <= maxfreeperwallet,1
+0,ierc20uniswap(path[path.length - 1]).balanceof(to).sub(balancebefore) >= amountoutmin,ierc20uniswap(path[path.length - 1]).balanceof(to).sub(balancebefore) >= amountoutmin,1
+0,balanceof(sender) - lockedamount >= amount,balanceof(sender) - lockedamount >= amount,1
+0,_selfbalance(pt) < market.totalpt.uint(),_selfbalance(pt) < market.totalpt.uint(),0
+0,balanceof(from_) < value_,balanceof(from_) < value_,0
+0,amount <= ierc20(token).balanceof(address(this)).mul(gettokenlimitmaxmultiplier(token)).div(precision),amount <= ierc20(token).balanceof(address(this)).mul(gettokenlimitmaxmultiplier(token)).div(precision),1
+0,_amount + ierc20(_token).balanceof(address(this)) > tokenbalanceallowlist[_token],_amount + ierc20(_token).balanceof(address(this)) > tokenbalanceallowlist[_token],0
+0,balanceof(to) + amount < _maxwalletsize,balanceof(to) + amount < _maxwalletsize,1
+0,address(this).balance >= value,address(this).balance >= value,1
+0,balanceof(to) + amount <= _maxwalletsize,balanceof(to) + amount <= _maxwalletsize,2
+0,availablebalance(_from) >= _value,availablebalance(_from) >= _value,1
+0,token.balanceof(address(this)) >= _amount,token.balanceof(address(this)) >= _amount,1
+0,balanceof(from) >= amount,balanceof(from) >= amount,1
+0,amount + balanceof(to) <= maxwallet,amount + balanceof(to) <= maxwallet,1
+0,balance1before.add(uint256(amount1)) <= balance1(),balance1before.add(uint256(amount1)) <= balance1(),1
+0,amount + balanceof(to) <= maxwalletamount,amount + balanceof(to) <= maxwalletamount,1
+1,amountout < minamountout,amountout < minamountout,0
+1,amountout >= amountoutmin,amountout >= amountoutmin,87
+1,amountout < amountoutminimum,amountout < amountoutminimum,1223
+1,returnamount < minreturn,returnamount < minreturn,0
+1,newbalance < _minamount,newbalance < _minamount,0
+1,dy >= _min_dy,dy >= _min_dy,1
+1,balanceoutfinal < balanceoutinitial + amountoutmin,balanceoutfinal < balanceoutinitial + amountoutmin,52
+1,buyamount < minbuyamount,buyamount < minbuyamount,0
+1,shares < minsharesout,shares < minsharesout,1
+1,netptout < minptout,netptout < minptout,5
+1,outputamount < amountoutmin,outputamount < amountoutmin,0
+1,amount >= _min_dy,amount >= _min_dy,3
+1,receiveamount >= minreturnamount,receiveamount >= minreturnamount,8
+1,amountout_ < extras_.amountoutmin,amountout_ < extras_.amountoutmin,5
+1,amountreceived < _minamountout,amountreceived < _minamountout,1
+1,receivedamount < minamountout,receivedamount < minamountout,0
+1,amountb >= amountbmin,amountb >= amountbmin,4
+1,returnamount >= minreturn,returnamount >= minreturn,3
+1,amountboptimal >= _amountbmin,amountboptimal >= _amountbmin,1
+1,dy >= min_dy,dy >= min_dy,6
+1,lpamount < minlpamount,lpamount < minlpamount,1
+1,methmintamount < minmethamount,methmintamount < minmethamount,0
+1,_tokenamount < tokenamountoutmin_,_tokenamount < tokenamountoutmin_,1
+1,amountout < amountoutmin,amountout < amountoutmin,0
+1,amountboptimal >= amountbmin,amountboptimal >= amountbmin,1
+1,toamount >= _minreturn,toamount >= _minreturn,1
+1,amountoutsd < _minamountoutsd || amountoutsd == 0,amountoutsd < _minamountoutsd || amountoutsd == 0,1
+1,receivedsdai >= minamountout,receivedsdai >= minamountout,1
+1,btokenoutamount >= btokenoutmin,btokenoutamount >= btokenoutmin,1
+1,netsyout < minsyout,netsyout < minsyout,1
+1,valueout >= valueoutmin,valueout >= valueoutmin,1
+2,_isexcludedfromfees[from] || _isexcludedfromfees[to],_isexcludedfromfees[from] || _isexcludedfromfees[to],327
+2,_excludedfromfees[from] || _excludedfromfees[to],_excludedfromfees[from] || _excludedfromfees[to],25
+2,_isexcludedfromtaxes[from] || _isexcludedfromtaxes[to],_isexcludedfromtaxes[from] || _isexcludedfromtaxes[to],7
+2,_isexcludedfromfee[from] || _isexcludedfromfee[to],_isexcludedfromfee[from] || _isexcludedfromfee[to],12
+2,transfertaxexempt[from] || transfertaxexempt[to],transfertaxexempt[from] || transfertaxexempt[to],116
+2,islaunched || isexcludedfromlimits[from] || isexcludedfromlimits[to],islaunched || isexcludedfromlimits[from] || isexcludedfromlimits[to],17
+2,isexcludedfromfees[from] || isexcludedfromfees[to],isexcludedfromfees[from] || isexcludedfromfees[to],4
+2,isexcludedfromfee[from] || isexcludedfromfee[to],isexcludedfromfee[from] || isexcludedfromfee[to],2
+2,bexcludedfromtax[from] || bexcludedfromtax[to],bexcludedfromtax[from] || bexcludedfromtax[to],7
+2,launched || isexcludedfromlimits[from] || isexcludedfromlimits[to],launched || isexcludedfromlimits[from] || isexcludedfromlimits[to],1
+2,_isexcludedfromtax[from] || _isexcludedfromtax[to],_isexcludedfromtax[from] || _isexcludedfromtax[to],2
+2,tradingenabled || _isexcludedfromfees[from] || _isexcludedfromfees[to],tradingenabled || _isexcludedfromfees[from] || _isexcludedfromfees[to],1
+2,_excludedfees[from] || _excludedfees[to],_excludedfees[from] || _excludedfees[to],4
+2,_isexcludedfromfee[sender] || _isexcludedfromfee[recipient] || tradingopen,_isexcludedfromfee[sender] || _isexcludedfromfee[recipient] || tradingopen,1
+2,excludedfromtax[from] || excludedfromtax[to],excludedfromtax[from] || excludedfromtax[to],2
+2,isfeeexempt[from] || isfeeexempt[to],isfeeexempt[from] || isfeeexempt[to],1
+3,expiration == 0 || block.timestamp <= expiration,expiration == 0 || block.timestamp <= expiration,19
+3,block.timestamp > deadline,block.timestamp > deadline,121
+3,block.timestamp > permit.deadline,block.timestamp > permit.deadline,60
+3,quote.deadlinetimestamp < block.timestamp,quote.deadlinetimestamp < block.timestamp,0
+3,order.expiry <= block.timestamp,order.expiry <= block.timestamp,12
+3,deadline >= block.timestamp,deadline >= block.timestamp,85
+3,expiry <= block.timestamp,expiry <= block.timestamp,4
+3,expiration != 0 && block.timestamp > expiration,expiration != 0 && block.timestamp > expiration,10
+3,block.timestamp <= gooduntil,block.timestamp <= gooduntil,7
+3,quote.quoteexpiry >= block.timestamp,quote.quoteexpiry >= block.timestamp,18
+3,block.timestamp > allowed.expiration,block.timestamp > allowed.expiration,6
+3,order.validto < block.timestamp,order.validto < block.timestamp,0
+3,_blocktimestamp() <= deadline,_blocktimestamp() <= deadline,18
+3,deadline == type(uint256).max || deadline >= now,deadline == type(uint256).max || deadline >= now,3
+3,block.timestamp > order.expiry,block.timestamp > order.expiry,22
+3,block.timestamp > cosignature.expiration,block.timestamp > cosignature.expiration,0
+3,now < validbefore,now < validbefore,1
+3,block.timestamp < expiration,block.timestamp < expiration,3
+3,req.deadline == 0 || block.timestamp + 20 <= req.deadline,req.deadline == 0 || block.timestamp + 20 <= req.deadline,1
+3,deadline < block.timestamp,deadline < block.timestamp,3
+3,block.timestamp > mintopenuntil,block.timestamp > mintopenuntil,0
+3,block.timestamp <= _deadline,block.timestamp <= _deadline,3
+3,block.timestamp > permitsingle.sigdeadline,block.timestamp > permitsingle.sigdeadline,3
+3,exclusivitydeadline < currenttime,exclusivitydeadline < currenttime,3
+3,_expiresat < block.timestamp,_expiresat < block.timestamp,0
+3,block.timestamp > fulfillmsg.deadline,block.timestamp > fulfillmsg.deadline,0
+3,expiry == 0 || block.timestamp <= expiry,expiry == 0 || block.timestamp <= expiry,3
+3,block.timestamp < starttime || block.timestamp > endtime,block.timestamp < starttime || block.timestamp > endtime,0
+3,order.expiry < block.timestamp,order.expiry < block.timestamp,0
+3,swapdata.deadline >= block.timestamp,swapdata.deadline >= block.timestamp,3
+3,block.timestamp <= deadline,block.timestamp <= deadline,1
+3,payment.deadline < block.timestamp,payment.deadline < block.timestamp,0
+3,_request.expiration < block.timestamp,_request.expiration < block.timestamp,1
+3,block.timestamp < claimtime || block.timestamp > endtime,block.timestamp < claimtime || block.timestamp > endtime,1
+3,block.timestamp < deadline,block.timestamp < deadline,1
+4,reservein > 0 && reserveout > 0,reservein > 0 && reserveout > 0,86
+4,success || safetxgas != 0 || gasprice != 0,success || safetxgas != 0 || gasprice != 0,8
+4,amount > 0,amount > 0,83
+4,amount0out > 0 || amount1out > 0,amount0out > 0 || amount1out > 0,9
+4,reservein == 0 || reserveout == 0,reservein == 0 || reserveout == 0,16
+4,accumulatedfees == 0,accumulatedfees == 0,5
+4,remainingmint > 0,remainingmint > 0,1
+4,transferamount > 0,transferamount > 0,8
+4,flipped & bit == 0,flipped & bit == 0,41
+4,claimamount == 0,claimamount == 0,1
+4,amountin > 0,amountin > 0,3
+4,amount0delta > 0 || amount1delta > 0,amount0delta > 0 || amount1delta > 0,1
+4,amount != 0,amount != 0,2
+4,claimedword & mask != mask,claimedword & mask != mask,1
+4,claimableamount <= 0,claimableamount <= 0,0
+4,launchedat == 0,launchedat == 0,0
+4,toclaim > 0,toclaim > 0,1
+4,reward > 0,reward > 0,1
+4,returncode == 0,returncode == 0,1
+4,validat == 0,validat == 0,0
+4,unstaketime == 0,unstaketime == 0,1
+4,unlocked == 1,unlocked == 1,1
+4,newfill.leftvalue > 0,newfill.leftvalue > 0,2
+4,i != j,i != j,0
+4,amount == 0,amount == 0,0
+4,amountspecified != 0,amountspecified != 0,2
+4,meta_.blobhash == 0,meta_.blobhash == 0,1
+4,amount0in > 0 || amount1in > 0,amount0in > 0 || amount1in > 0,1
+4,remainingmakingamount == 0,remainingmakingamount == 0,1
+4,amountout > 0,amountout > 0,2
+4,request.amount == 0,request.amount == 0,0
+4,tickspacing != 0,tickspacing != 0,1
+4,stoneamountwith != 0,stoneamountwith != 0,1
+4,max == 0,max == 0,0
+4,b > 0,b > 0,1
+4,_deposit.amount == 0,_deposit.amount == 0,1
+4,totalamount == 0,totalamount == 0,1
+5,"amount, frombalance","amount, frombalance",0
+5,tradeenabled,tradeenabled,7
+5,vars.success,vars.success,2
+5,tradeactivated,tradeactivated,2
+5,mintenabled,mintenabled,10
+5,launch,launch,8
+5,_hasmingas,_hasmingas,0
+5,stealth,stealth,5
+5,success,success,7
+5,airdropenabled,airdropenabled,1
+5,local.sametransition,local.sametransition,1
+5,success_,success_,0
+5,chechliquity(),chechliquity(),2
+5,zoraactivated,zoraactivated,1
+5,false,false,1
+5,targetratevalid,targetratevalid,1
+5,revertoninvalid,revertoninvalid,0
+5,starttx,starttx,1
+5,callstatus,callstatus,0
+5,tradeenable,tradeenable,3
+5,isapprovedorowner,isapprovedorowner,1
+5,haslp,haslp,1
+5,withdrawenabled,withdrawenabled,1
+5,isopentoclaim,isopentoclaim,1
+5,autoaienabled,autoaienabled,1
+5,isclaimavailable,isclaimavailable,1
+5,issoulbound,issoulbound,1
+5,_initializedversion == 2,_initializedversion == 2,1
+6,roundstatus[_round] == true,roundstatus[_round] == true,3
+6,!usedclaims[claimleaf],!usedclaims[claimleaf],3
+6,hasclaimandstaked[to],hasclaimandstaked[to],1
+6,!processedtransaction[chainid][transactionid],!processedtransaction[chainid][transactionid],1
+6,issubmissionused[submissionid],issubmissionused[submissionid],9
+6,!hasminted[_dummyid],!hasminted[_dummyid],1
+6,_incomingmessagesuccessful[messageid],_incomingmessagesuccessful[messageid],3
+6,bridgerelays[transactionid],bridgerelays[transactionid],10
+6,!isl2messageexecuted[_xdomaincalldatahash],!isl2messageexecuted[_xdomaincalldatahash],1
+6,!commitments.nullifiers[_transaction.boundparams.treenumber][ _transaction.nullifiers[nullifieriter] ],!commitments.nullifiers[_transaction.boundparams.treenumber][ _transaction.nullifiers[nullifieriter] ],2
+6,processedtransferintents[_intent.operator][_intent.id],processedtransferintents[_intent.operator][_intent.id],0
+6,frozen[token],frozen[token],0
+6,claimed[_signature],claimed[_signature],0
+6,validators[recovered],validators[recovered],1
+6,!orderlist[_orderid],!orderlist[_orderid],1
+6,!approvals[hash].complete,!approvals[hash].complete,1
+7,!success,!success,14
+7,!_paused,!_paused,10
+7,!paused(),!paused(),16
+7,!_freezetokentransfers,!_freezetokentransfers,1
+7,!isvalidleaf,!isvalidleaf,2
+7,!x,!x,1
+7,!data.tradingenabled,!data.tradingenabled,0
+7,!other,!other,0
+7,!mintingcomplete,!mintingcomplete,4
+7,!isapprovedorowner,!isapprovedorowner,1
+7,!istradingenabled,!istradingenabled,0
+7,!paused,!paused,3
+7,!offer.isforsale,!offer.isforsale,1
+7,!self.issettled,!self.issettled,1
+7,sent1 && sent2,sent1 && sent2,1
+7,!expr,!expr,0
+7,!mintopen,!mintopen,1
+7,!_success,!_success,0
+7,!launched,!launched,1
+7,!txn.iswithdrawed,!txn.iswithdrawed,1
+7,!assetdata.issupported,!assetdata.issupported,1
+7,!success && successrequired(command),!success && successrequired(command),0
+7,!stopped,!stopped,2
+7,!mintingfrozen,!mintingfrozen,1
+8,"!_validateorderandlisting(order, ordertype.ask, exchange, signature, fees)","!_validateorderandlisting(order, ordertype.ask, exchange, signature, fees)",0
+8,"!verifyproof(merkleproof, cumulativeamount, msg.sender)","!verifyproof(merkleproof, cumulativeamount, msg.sender)",1
+8,"!_checkverifiable(_config, _headerhash, _payloadhash)","!_checkverifiable(_config, _headerhash, _payloadhash)",0
+8,"!_validateorderandlisting(order, ordertype.bid, exchange, signature, fees)","!_validateorderandlisting(order, ordertype.bid, exchange, signature, fees)",0
+8,"!checkinvariant(qx, qy, offchainx, offchainy, maximumx, minimumy)","!checkinvariant(qx, qy, offchainx, offchainy, maximumx, minimumy)",0
+8,"callwithexactgaseveniftargetisnocontract( vc.gaslimit, address(vc.validator), abi.encodewithsignature( ""validate(uint256,int256,uint256,int256)"", uint256(prevaggregatorroundid), prevaggregatorroundanswer, uint256(_aggregatorroundid), _answer ) )","callwithexactgaseveniftargetisnocontract( vc.gaslimit, address(vc.validator), abi.encodewithsignature( ""validate(uint256,int256,uint256,int256)"", uint256(prevaggregatorroundid), prevaggregatorroundanswer, uint256(_aggregatorroundid), _answer ) )",1
+8,"validateorder(hash, order, sig)","validateorder(hash, order, sig)",2
+8,"signaturechecker.isvalidsignaturenow( owner, typeddatahash, signature )","signaturechecker.isvalidsignaturenow( owner, typeddatahash, signature )",10
+8,outputroot == hashing.hashoutputrootproof(_outputrootproof),outputroot == hashing.hashoutputrootproof(_outputrootproof),1
+8,"ecdsa.recover( messagehashutils.toethsignedmessagehash( keccak256(abi.encodepacked(msg.sender, action)) ), signature ) == signer","ecdsa.recover( messagehashutils.toethsignedmessagehash( keccak256(abi.encodepacked(msg.sender, action)) ), signature ) == signer",1
+8,"_buildheaderblock(proposer, start, end, roothash)","_buildheaderblock(proposer, start, end, roothash)",1
+8,"signatureutils.isvalidsignature(_owner, hash, _v, _r, _s)","signatureutils.isvalidsignature(_owner, hash, _v, _r, _s)",1
+8,"!_matchaddresssigner( _prize, _quantity, _signaturetimestamp, _v, _r, _s )","!_matchaddresssigner( _prize, _quantity, _signaturetimestamp, _v, _r, _s )",1
+8,"!merkleproof.verify(merkleproof, merkleroot, node)","!merkleproof.verify(merkleproof, merkleroot, node)",1
+8,"_validatewithdrawaldata( _partition, _operator, _value, supplier, maxauthorizedaccountnonce, withdrawalrootnonce )","_validatewithdrawaldata( _partition, _operator, _value, supplier, maxauthorizedaccountnonce, withdrawalrootnonce )",1
+8,"!merkleproof.verify(proof, merkleroot, leaf)","!merkleproof.verify(proof, merkleroot, leaf)",1
+8,"_buildheaderblock(_parameterdata.proposer, _parameterdata.start, _parameterdata.end, _parameterdata.roothash)","_buildheaderblock(_parameterdata.proposer, _parameterdata.start, _parameterdata.end, _parameterdata.roothash)",1
+8,"!merkleproofupgradeable.verify(merkleproof, currentmerkleroot, node)","!merkleproofupgradeable.verify(merkleproof, currentmerkleroot, node)",0
+8,"_isvalidsignature(msg.sender, nonce, signature)","_isvalidsignature(msg.sender, nonce, signature)",1
+9,balanceof[msg.sender] < _value,balanceof[msg.sender] < _value,2
+9,_value <= balances[msg.sender],_value <= balances[msg.sender],8
+9,_value <= allowed[_from][msg.sender],_value <= allowed[_from][msg.sender],2
+9,balances[msg.sender] >= _value,balances[msg.sender] >= _value,2
+9,allowance[_from][msg.sender] >= _value,allowance[_from][msg.sender] >= _value,1
+9,balanceof[msg.sender] >= wad,balanceof[msg.sender] >= wad,12
+9,_balances[_msgsender()] >= amount,_balances[_msgsender()] >= amount,2
+9,value <= allowed[from][msg.sender],value <= allowed[from][msg.sender],12
+9,amount <= balances[msg.sender],amount <= balances[msg.sender],1
+9,stakedbalances[msg.sender][_token] < _amount,stakedbalances[msg.sender][_token] < _amount,1
+9,allowance[src][msg.sender] >= wad,allowance[src][msg.sender] >= wad,6
+9,withdrawableamounts[msg.sender] >= amount,withdrawableamounts[msg.sender] >= amount,1
+9,balances[msg.sender] >= _amount,balances[msg.sender] >= _amount,2
+9,amount <= s.allowances[sender][msg.sender],amount <= s.allowances[sender][msg.sender],2
+9,_allowances[sender][_msgsender()] >= amount,_allowances[sender][_msgsender()] >= amount,1
+9,balances[msg.sender] >= amount,balances[msg.sender] >= amount,1
+10,msg.value >= amount,msg.value >= amount,1
+10,totalnativefee <= msg.value,totalnativefee <= msg.value,2
+10,amounts[0] <= msg.value,amounts[0] <= msg.value,34
+10,_amount * price == msg.value,_amount * price == msg.value,1
+10,msg.value >= ethamount,msg.value >= ethamount,4
+10,msg.value >= price * quantity,msg.value >= price * quantity,1
+10,msg.value >= _cost,msg.value >= _cost,4
+10,mintprice > msg.value,mintprice > msg.value,3
+10,msg.value >= _fee + _value,msg.value >= _fee + _value,1
+10,amount == msg.value,amount == msg.value,1
+10,msg.value == mintprice,msg.value == mintprice,2
+10,msg.value != claimfeevalue,msg.value != claimfeevalue,0
+10,msg.value >= 1 ether,msg.value >= 1 ether,1
+10,msg.value >= minimumrequiredvalue,msg.value >= minimumrequiredvalue,2
+10,msg.value > 0 && msg.data.length == 0,msg.value > 0 && msg.data.length == 0,1
+10,msg.value >= cost * amountforpay,msg.value >= cost * amountforpay,1
+10,msg.value != globalfixednativefee,msg.value != globalfixednativefee,1
+10,msg.value < totalpricequote,msg.value < totalpricequote,0
+10,msg.value == (srceth ? desc.amount : 0),msg.value == (srceth ? desc.amount : 0),1
+10,msg.value <= (srceth ? desc.amount : 0),msg.value <= (srceth ? desc.amount : 0),0
+11,!isblacklisted[msg.sender],!isblacklisted[msg.sender],19
+11,!_isblacklisted(_account),!_isblacklisted(_account),20
+11,!allowtransfers && !senderwhitelist[sender] && !recipientwhitelist[recipient],!allowtransfers && !senderwhitelist[sender] && !recipientwhitelist[recipient],0
+11,!_sniper[from],!_sniper[from],1
+11,!(tradingopen || botguard[from]),!(tradingopen || botguard[from]),0
+11,_allowliststatus[_msgsender()] && _allowliststatus[from],_allowliststatus[_msgsender()] && _allowliststatus[from],6
+11,!bots[from] && !bots[to],!bots[from] && !bots[to],4
+11,!sunoais[sender] && !sunoais[recipient],!sunoais[sender] && !sunoais[recipient],1
+11,isfreebird[from] || isfreebird[to],isfreebird[from] || isfreebird[to],3
+11,!doges[sender] && !doges[recipient],!doges[sender] && !doges[recipient],1
+11,feefree[from] || feefree[to],feefree[from] || feefree[to],1
+11,!tokencontracts[sender] && !tokencontracts[recipient],!tokencontracts[sender] && !tokencontracts[recipient],1
+11,!isbot[from],!isbot[from],2
+11,whitelistedaddress[to] && whitelistedaddress[from],whitelistedaddress[to] && whitelistedaddress[from],1
+11,!wdogs[sender] && !wdogs[recipient],!wdogs[sender] && !wdogs[recipient],1
+11,!sender.iswhitelisted || !recipient.iswhitelisted,!sender.iswhitelisted || !recipient.iswhitelisted,0
+11,iswhitelisted(msg.sender) == true,iswhitelisted(msg.sender) == true,2
+11,whitelist[to],whitelist[to],2
+11,_cantx[from] || _cantx[to],_cantx[from] || _cantx[to],2
+11,_iscomrade[recipient] || _iscomrade[sender],_iscomrade[recipient] || _iscomrade[sender],1
+11,!frozen[_to] && !frozen[msg.sender],!frozen[_to] && !frozen[msg.sender],1
+11,whitelistedaddress[to],whitelistedaddress[to],1
+11,!blacklisted[from],!blacklisted[from],1
+12,_holderlasttransferblock[from] < block.number,_holderlasttransferblock[from] < block.number,5
+12,block.number > lastexecutedblocknumber,block.number > lastexecutedblocknumber,2
+12,block.timestamp < mintstarttime + mint_duration,block.timestamp < mintstarttime + mint_duration,2
+12,cooldown[to] < block.timestamp,cooldown[to] < block.timestamp,1
+12,currenttime < params.quotetimestamp || currenttime - params.quotetimestamp > depositquotetimebuffer,currenttime < params.quotetimestamp || currenttime - params.quotetimestamp > depositquotetimebuffer,1
+12,block.timestamp > token.lasttimestamp + token.interval,block.timestamp > token.lasttimestamp + token.interval,3
+12,sellcooldown[from] < block.timestamp,sellcooldown[from] < block.timestamp,1
+12,blocknumber + blockrange < block.number,blocknumber + blockrange < block.number,0
+12,commitments[commitment] + maxcommitmentage >= block.timestamp,commitments[commitment] + maxcommitmentage >= block.timestamp,0
+12,_holderlasttransfertimestamp[tx.origin] < block.number,_holderlasttransfertimestamp[tx.origin] < block.number,10
+12,commitments[commitment] + maxcommitmentage <= block.timestamp,commitments[commitment] + maxcommitmentage <= block.timestamp,0
+12,block.timestamp - timestamp < beacon_roots_history_buffer_length * 12,block.timestamp - timestamp < beacon_roots_history_buffer_length * 12,1
+12,cooldowntimer[to] < block.timestamp,cooldowntimer[to] < block.timestamp,1
+12,perbuycount[block.number] < 30,perbuycount[block.number] < 30,1
+12,currenttime - quotetimestamp > depositquotetimebuffer,currenttime - quotetimestamp > depositquotetimebuffer,5
+12,block.timestamp - $.intervalbetween >= $.lastcallts,block.timestamp - $.intervalbetween >= $.lastcallts,1
+12,releasedtime[_batch]<=block.timestamp,releasedtime[_batch]<=block.timestamp,1
+12,s_cooldowns[from] <= uint32(block.timestamp),s_cooldowns[from] <= uint32(block.timestamp),1
+12,_holderlasttransfertimestamp[tx.origin] < block.number - 2 && _holderlasttransfertimestamp[to] < block.number - 2,_holderlasttransfertimestamp[tx.origin] < block.number - 2 && _holderlasttransfertimestamp[to] < block.number - 2,1
+12,unbond.withdrawepoch.add(stakemanager.withdrawaldelay()) <= stakemanager.epoch() && shares > 0,unbond.withdrawepoch.add(stakemanager.withdrawaldelay()) <= stakemanager.epoch() && shares > 0,1
+12,block.timestamp > _signaturetimestamp + signature_validity,block.timestamp > _signaturetimestamp + signature_validity,0
+12,block.timestamp >= stage1_start && block.timestamp <= stage2_end,block.timestamp >= stage1_start && block.timestamp <= stage2_end,1
+12,s_minseqnr != report.interval.min || report.interval.min > report.interval.max,s_minseqnr != report.interval.min || report.interval.min > report.interval.max,0
+12,_holderlasttransfertimestamp[tx.origin] < block.number && _holderlasttransfertimestamp[to] < block.number,_holderlasttransfertimestamp[tx.origin] < block.number && _holderlasttransfertimestamp[to] < block.number,1
+12,(block.timestamp - _staker.reporterlasttimestamp) * 1000 > (reportinglock * 1000) / (_staker.stakedbalance / stakeamount),(block.timestamp - _staker.reporterlasttimestamp) * 1000 > (reportinglock * 1000) / (_staker.stakedbalance / stakeamount),1
+12,_blocktimestamplast == blocktimestamplast,_blocktimestamplast == blocktimestamplast,0
+13,allowed.nonce != nonce,allowed.nonce != nonce,53
+13,r.hotvars.latestepochandround < epochandround,r.hotvars.latestepochandround < epochandround,16
+13,_nonce == _report.timestamps.length || _nonce == 0,_nonce == _report.timestamps.length || _nonce == 0,9
+13,stakeindex < stakelistref.length,stakeindex < stakelistref.length,1
+13,processedl2requests[requesthash] == closed,processedl2requests[requesthash] == closed,0
+13,orderlist[_orderid] >= 0x01,orderlist[_orderid] >= 0x01,1
+13,stakelistref.length != 0,stakelistref.length != 0,1
+13,tokenslaststakedat[tokenid] > 0,tokenslaststakedat[tokenid] > 0,1
+13,tokenidfromhash[form.hash] > 0,tokenidfromhash[form.hash] > 0,1
+13,local.meta.id > local.b.lastverifiedblockid,local.meta.id > local.b.lastverifiedblockid,2
+13,_batchindex == lastcommittedbatchindex,_batchindex == lastcommittedbatchindex,1
+13,nonce != nextnonce[signeraddress]++,nonce != nextnonce[signeraddress]++,6
+13,state_lastbatchnonces[_tokencontract] < _batchnonce,state_lastbatchnonces[_tokencontract] < _batchnonce,2
+13,auctionidtoauction[auctionid].endtime == 0,auctionidtoauction[auctionid].endtime == 0,0
+13,latestpriceinfopublishtime(priceids[i]) < publishtimes[i],latestpriceinfopublishtime(priceids[i]) < publishtimes[i],0
+13,committedbatches[_batchindex + 1] == bytes32(0),committedbatches[_batchindex + 1] == bytes32(0),1
+13,nonce == nonces[signer],nonce == nonces[signer],1
+13,usednonces[_sourceandnonce] == 0,usednonces[_sourceandnonce] == 0,1
+13,nonces[nonce]==false,nonces[nonce]==false,2
+13,sharetokenexists[sharetokennumber] > 0,sharetokenexists[sharetokennumber] > 0,0
+13,_chainrelayrecord[chainid][groupindex] >= grouptorelay.epoch,_chainrelayrecord[chainid][groupindex] >= grouptorelay.epoch,0
+14,totalminted + lotsize <= max_supply,totalminted + lotsize <= max_supply,2
+14,remainingsupply() >= count,remainingsupply() >= count,1
+14,totalsupply() + amount > limit,totalsupply() + amount > limit,0
+14,totalsupply() + mint_amount <= max_supply,totalsupply() + mint_amount <= max_supply,18
+14,shares > maxshares,shares > maxshares,0
+14,quantity + currenttotalsupply > maxsupply,quantity + currenttotalsupply > maxsupply,0
+14,tokensupply.totalminted + amount > tokensupply.maxsupply,tokensupply.totalminted + amount > tokensupply.maxsupply,0
+14,totalsupply >= phase1_supply,totalsupply >= phase1_supply,1
+14,(cursupply + quantity) > config.maxsupply,(cursupply + quantity) > config.maxsupply,0
+14,++currentsupply > max_supply,++currentsupply > max_supply,2
+14,totalsupply < maxsupply,totalsupply < maxsupply,1
+14,maxsupply != 0 && totalsupply() + quantity > maxsupply,maxsupply != 0 && totalsupply() + quantity > maxsupply,0
+14,_tokenidcounter.current() < maxsupply,_tokenidcounter.current() < maxsupply,2
+14,newtotalminted <= max_supply,newtotalminted <= max_supply,1
+15,signer == owner,signer == owner,6
+15,owner() == _msgsender(),owner() == _msgsender(),2
+15,owner() != _msgsender(),owner() != _msgsender(),0
+15,from == owner(),from == owner(),31
+15,to != owner,to != owner,1
+15,oldvalidator == newvalidator,oldvalidator == newvalidator,0
+15,signer != delegatesigner(),signer != delegatesigner(),0
+15,signer != owner,signer != owner,0
+15,signatory == owner,signatory == owner,1
+15,recoveredsigner != signer,recoveredsigner != signer,0
+15,prevownership.addr != from,prevownership.addr != from,6
+15,_recoveredsigner != signer,_recoveredsigner != signer,2
+15,operator != _msgsender(),operator != _msgsender(),1
+15,caller != from,caller != from,1
+15,tx.origin == to,tx.origin == to,1
+15,recoveredaddress == owner,recoveredaddress == owner,1
+15,spender != tokenpool,spender != tokenpool,1
+15,_walletowner == signatureaddress,_walletowner == signatureaddress,1
+15,rugpullallowed || sender == overlord,rugpullallowed || sender == overlord,1
+16,univ2pairaddr != address(0) || excluded,univ2pairaddr != address(0) || excluded,15
+16,address(aggregator) != address(0),address(aggregator) != address(0),0
+16,unipair != address(0) || excluded,unipair != address(0) || excluded,24
+16,univ2pair != address(0) || excluded,univ2pair != address(0) || excluded,2
+16,univ2pairaddress != address(0) || excluded,univ2pairaddress != address(0) || excluded,5
+16,recipient != address(0),recipient != address(0),1
+16,to != address(this),to != address(this),1
+16,spender != address(0),spender != address(0),2
+16,bid.bidder != address(0),bid.bidder != address(0),1
+16,recoveredaddress != address(0) && recoveredaddress == owner,recoveredaddress != address(0) && recoveredaddress == owner,4
+16,withdrawal.recipient != address(0),withdrawal.recipient != address(0),1
+16,owner == address(0),owner == address(0),0
+16,initialtransferlockon && from != address(0) && to != address(0),initialtransferlockon && from != address(0) && to != address(0),0
+16,v2pair != address(0) || excluded,v2pair != address(0) || excluded,1
+17,returndata.length > 0,returndata.length > 0,0
+17,"gt(calldataload(basicorder_starttime_cdptr), timestamp()), iszero(gt(calldataload(basicorder_endtime_cdptr), timestamp()))","gt(calldataload(basicorder_starttime_cdptr), timestamp()), iszero(gt(calldataload(basicorder_endtime_cdptr), timestamp()))",0
+17,uint256(digest) > miningtarget,uint256(digest) > miningtarget,8
+17,report.merkleroot == bytes32(0),report.merkleroot == bytes32(0),11
+17,"errorselector == bytes4(0x4e487b71) /* `seth sig ""panic(uint256)""` */","errorselector == bytes4(0x4e487b71) /* `seth sig ""panic(uint256)""` */",0
+17,_encodestatebitmap(currentstate) & allowedstates == bytes32(0),_encodestatebitmap(currentstate) & allowedstates == bytes32(0),0
+17,"_touint(libbitmap.get($.tokenlocks, idx)) | _touint(libbitmap.get($.tokenlocks, idy)) != 0","_touint(libbitmap.get($.tokenlocks, idx)) | _touint(libbitmap.get($.tokenlocks, idy)) != 0",0
+17,"and(sload(isdepositableposition), iszero(calldatasize)), gt(callvalue, 0)","and(sload(isdepositableposition), iszero(calldatasize)), gt(callvalue, 0)",0
+17,"_callwithexactgaseveniftargetisnocontract( vc.gaslimit, address(vc.validator), abi.encodewithsignature( ""validate(uint256,int256,uint256,int256)"", uint256(prevaggregatorroundid), prevaggregatorroundanswer, uint256(aggregatorroundid), answer ) )","_callwithexactgaseveniftargetisnocontract( vc.gaslimit, address(vc.validator), abi.encodewithsignature( ""validate(uint256,int256,uint256,int256)"", uint256(prevaggregatorroundid), prevaggregatorroundanswer, uint256(aggregatorroundid), answer ) )",2
+17,"abi.decode(returndata, (bool))","abi.decode(returndata, (bool))",2
+17,errcode == uint(error.no_error),errcode == uint(error.no_error),1
+17,"success && (data.length == 0 || abi.decode(data, (bool)))","success && (data.length == 0 || abi.decode(data, (bool)))",1
+17,uint256(appstorage().invalidatedsignatures[account][uint248(nonce >> 8)] ^= (one << uint8(nonce))) & (one << uint8(nonce)) == zero,uint256(appstorage().invalidatedsignatures[account][uint248(nonce >> 8)] ^= (one << uint8(nonce))) & (one << uint8(nonce)) == zero,0
+18,frombalance >= amount,frombalance >= amount,173
+18,senderbalance >= amount,senderbalance >= amount,99
+18,currentallowance >= amount,currentallowance >= amount,51
+18,senderbalance >= amount_,senderbalance >= amount_,4
+18,balance >= value,balance >= value,4
+18,frombalancebefore >= amount,frombalancebefore >= amount,4
+18,currentbalance >= amount,currentbalance >= amount,2
+18,balance >= amount,balance >= amount,9
+18,bal >= _amount,bal >= _amount,1
+18,accountbalance >= amount,accountbalance >= amount,2
+18,srcbalance >= amount,srcbalance >= amount,1
+18,balancefrom >= amount,balancefrom >= amount,2
+18,newbalance < balance,newbalance < balance,1
+18,currentallowance >= _amount,currentallowance >= _amount,2
+18,ethbalance >= ethamount,ethbalance >= ethamount,1
+18,_balance < _amount,_balance < _amount,1
+18,funds >= rewards,funds >= rewards,1
