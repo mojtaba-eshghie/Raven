@@ -1,4 +1,4 @@
-# Raven: Discovering Defensive Patterns in Ethereum via Semantic Clustering of Transaction Revert Invariants
+# Raven: Discovering Defensive Patterns in Ethereum via Semantic Analysis of Transaction Revert Invariants 
 
 Raven treats **failed Ethereum transactions** as a *positive* signal of working on-chain defenses.
 
