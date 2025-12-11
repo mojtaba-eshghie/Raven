@@ -19,10 +19,10 @@ This repo contains all code and artifacts to:
 - 📄 **Paper**: TBD 
 - 🧠 **Model – RavenBERT**  
   BERT-family encoder fine-tuned contrastively on revert-inducing invariants from 100k failed transactions:  
-  <https://huggingface.co/MojtabaEshghie/RavenBERT>
+  <TBD after double-blind reviews>
 - 📊 **Dataset – raven-dataset**  
   Sampled failed Ethereum transactions with extracted invariants and metadata:  
-  <https://huggingface.co/datasets/MojtabaEshghie/raven-dataset>
+  <TBD after double-blind reviews>
 
 Raven’s experiments (in this repo) use:
 
