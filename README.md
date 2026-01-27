@@ -16,7 +16,7 @@ This repo contains all code and artifacts to:
 
 ## Paper, Model, and Dataset
 
-- 📄 **Paper**: TBD 
+- 📄 **Paper**: [Raven: Mining Defensive Patterns in Ethereum via Semantic Transaction Revert Invariants Categories](https://arxiv.org/abs/2512.22616v1) 
 - 🧠 **Model – RavenBERT**  
   BERT-family encoder fine-tuned contrastively on revert-inducing invariants from 100k failed transactions:  
   <TBD after double-blind reviews>
@@ -74,5 +74,13 @@ Raven/
 
 ## Cite Raven
 ```bibtex
-TBD
+@misc{eshghie2025ravenminingdefensivepatterns,
+      title={Raven: Mining Defensive Patterns in Ethereum via Semantic Transaction Revert Invariants Categories}, 
+      author={Mojtaba Eshghie and Melissa Mazura and Alexandre Bartel},
+      year={2025},
+      eprint={2512.22616},
+      archivePrefix={arXiv},
+      primaryClass={cs.CR},
+      url={https://arxiv.org/abs/2512.22616}, 
+}
 ```
