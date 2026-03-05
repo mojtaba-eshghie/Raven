@@ -1,6 +1,6 @@
-# Clustering – Failysis
+# Clustering – Raven
 
-This folder contains the scripts used to cluster invariants for **Failysis**. It utilizes ReBERT, an embedding model created for invariants.
+This folder contains the scripts used to cluster invariants for **Raven**. It utilizes RavenBERT, an embedding model created for invariants.
 
 ---
 
