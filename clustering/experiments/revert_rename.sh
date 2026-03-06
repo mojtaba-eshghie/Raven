@@ -1,0 +1,5 @@
+mv "./with/kmeans_RavenBERT.txt" "./with/kmeans_ReBERT.txt"
+mv "./with/dbscan_RavenBERT.txt" "./with/dbscan_ReBERT.txt"
+mv "./with/hdbscan_RavenBERT.txt" "./with/hdbscan_ReBERT.txt"
+mv "./without/kmeans_RavenBERT.txt" "./without/kmeans_ReBERT.txt"
+mv "./without/hdbscan_RavenBERT.txt" "./without/hdbscan_ReBERT.txt"
