@@ -92,7 +92,7 @@ def make_pairs(embs: np.ndarray, texts: list[str],
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--csv", default="finetuning_dataset.csv", help="Path to CSV")
+    ap.add_argument("--csv", default="finetuning/finetuning_dataset.csv", help="Path to CSV")
     ap.add_argument("--base", default="web3se/SmartBERT-v2")
     ap.add_argument("--out",  default="clustering/ravenbert")
     ap.add_argument("--epochs", type=int, default=1)
