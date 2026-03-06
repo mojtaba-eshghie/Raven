@@ -11,3 +11,5 @@ pyarrow
 S_dbw
 torch==2.7.0
 transformers==4.52.4
+datasets==4.6.1
+sentence-transformers==5.2.3
