@@ -121,3 +121,56 @@ contract NomadHandler {
         }
     }
 }
+
+
+contract NomadReplicaInvariantNoHints is StdInvariant, Test {
+    NomadHandlerNoHints internal h;
+
+    function setUp() public {
+        h = new NomadHandlerNoHints();
+        targetContract(address(h));
+    }
+
+    function invariant_unprovenMessagesNeverProcess_noHints() public view {
+        assertFalse(h.unprovenProcessSucceeded());
+    }
+}
+
+contract NomadHandlerNoHints is Test {
+    ReplicaVulnerable public r;
+    bool public unprovenProcessSucceeded;
+
+    constructor() {
+        // start from a reasonable non-zero state
+        vm.warp(1);
+        r = new ReplicaVulnerable(address(this));
+        r.initialize(bytes32(uint256(1)), block.timestamp);
+    }
+
+    // Generic: time is part of the environment, not a Nomad-specific hint.
+    function warp(uint64 ts) external {
+        vm.warp(uint256(ts));
+    }
+
+    // No hinting: root can be anything; confirmAt can be anything (uint64 is realistic for timestamps).
+    function upgrade(bytes32 newRoot, uint64 newConfirmAt) external {
+        r.upgrade(newRoot, uint256(newConfirmAt));
+    }
+
+    function prove(bytes calldata message) external {
+        r.prove(message, r.committedRoot());
+    }
+
+    function process(bytes calldata message) external {
+        bytes32 mh = keccak256(message);
+        bool unproven = (r.messages(mh) == bytes32(0));
+
+        if (unproven) {
+            try r.process(message) {
+                unprovenProcessSucceeded = true;
+            } catch {}
+        } else {
+            try r.process(message) {} catch {}
+        }
+    }
+}
